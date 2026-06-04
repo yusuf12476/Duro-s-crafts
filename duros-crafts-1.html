@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duro's Crafts – Handmade is Heartfelt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm-white: #fffdf9;
+    --blush: #f2e0d0;
+    --dusty-rose: #d4927a;
+    --terracotta: #c0694a;
+    --deep-brown: #3d2314;
+    --mid-brown: #7a4a30;
+    --sage: #8a9e7e;
+    --dark-sage: #5a7050;
+    --yarn-gold: #e8b84b;
+    --soft-gold: #f0d080;
+    --ink: #1a1008;
+    --text: #3d2314;
+    --light-text: #8a6a50;
+    --border: rgba(192,105,74,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announcement-bar {
+    background: var(--deep-brown);
+    color: var(--soft-gold);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+  }
+  .announcement-bar span { color: var(--yarn-gold); }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 40px;
+    font-size: 0.8rem;
+    color: var(--light-text);
+    letter-spacing: 0.08em;
+  }
+  .top-bar .social-links { display: flex; gap: 16px; }
+  .top-bar .social-links a {
+    color: var(--mid-brown);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .top-bar .social-links a:hover { color: var(--terracotta); }
+  .top-bar .top-right { display: flex; gap: 20px; }
+  .top-bar .top-right a {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .top-bar .top-right a:hover { color: var(--terracotta); }
+
+  /* ── HEADER / NAV ── */
+  header {
+    background: var(--warm-white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(61,35,20,0.08);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .logo-area img {
+    height: 64px;
+    width: auto;
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-text .brand-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.9rem;
+    color: var(--deep-brown);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .logo-text .brand-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    color: var(--light-text);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-top: 3px;
+  }
+  nav { display: flex; gap: 6px; align-items: center; }
+  nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 14px; right: 14px;
+    height: 1px;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+  nav a:hover::after { transform: scaleX(1); }
+  nav a:hover { color: var(--terracotta); }
+  .nav-cta {
+    background: var(--deep-brown) !important;
+    color: var(--soft-gold) !important;
+    border-radius: 30px !important;
+    padding: 9px 22px !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.14em !important;
+    transition: background 0.25s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--terracotta) !important; transform: translateY(-1px) !important; }
+  .nav-cta::after { display: none !important; }
+  .header-icons { display: flex; gap: 18px; align-items: center; }
+  .header-icons button, .header-icons a {
+    background: none; border: none; cursor: pointer;
+    color: var(--mid-brown); font-size: 1.1rem;
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .header-icons button:hover, .header-icons a:hover { color: var(--terracotta); }
+  .cart-badge {
+    position: absolute; top: -6px; right: -8px;
+    background: var(--terracotta); color: white;
+    font-size: 0.6rem; width: 16px; height: 16px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-weight: 700;
+  }
+
+  /* ── HERO SLIDER ── */
+  .hero {
+    position: relative;
+    height: 90vh;
+    min-height: 560px;
+    overflow: hidden;
+  }
+  .hero-slides { width: 100%; height: 100%; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .hero-slide.active { opacity: 1; }
+  .hero-slide .bg {
+    position: absolute; inset: 0;
+    z-index: 0;
+  }
+  /* Slide BGs – rich textile-inspired gradients */
+  .slide-1 .bg { background: linear-gradient(135deg, #e8d5c4 0%, #d4927a 40%, #c0694a 100%); }
+  .slide-2 .bg { background: linear-gradient(135deg, #c8d8c0 0%, #8a9e7e 45%, #5a7050 100%); }
+  .slide-3 .bg { background: linear-gradient(135deg, #e8d0a0 0%, #e8b84b 45%, #c09030 100%); }
+  .slide-4 .bg { background: linear-gradient(135deg, #d8c8e0 0%, #a07898 45%, #785070 100%); }
+  .hero-slide .bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 80px;
+    max-width: 640px;
+    animation: heroIn 1s ease both;
+  }
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: rgba(255,255,255,0.6);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+  .hero-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: #fff;
+    color: var(--terracotta);
+    padding: 14px 34px;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+  .btn-ghost {
+    background: transparent;
+    color: #fff;
+    padding: 14px 34px;
+    border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.7);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+  .hero-dots {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 10;
+  }
+  .hero-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+  }
+  .hero-dot.active {
+    background: #fff;
+    width: 24px;
+    border-radius: 4px;
+  }
+  .hero-nav {
+    position: absolute; top: 50%; z-index: 10;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.2);
+    border: none; cursor: pointer;
+    color: #fff; font-size: 1.4rem;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s;
+  }
+  .hero-nav:hover { background: rgba(255,255,255,0.35); }
+  .hero-prev { left: 24px; }
+  .hero-next { right: 24px; }
+  /* Yarn scroll decoration */
+  .hero-yarn {
+    position: absolute; bottom: 0; right: 0;
+    width: 420px; height: 420px;
+    opacity: 0.12;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 90px 40px; }
+  .section-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::before, .section-eyebrow::after {
+    content: '';
+    flex: 1; max-width: 60px; height: 1px;
+    background: var(--terracotta);
+    opacity: 0.5;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--deep-brown);
+    text-align: center;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .section-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--light-text);
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 56px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+  .section-header { text-align: center; }
+
+  /* ── CATEGORIES ── */
+  .categories-section {
+    background: var(--warm-white);
+  }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .cat-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    aspect-ratio: 3/4;
+    transition: transform 0.3s;
+  }
+  .cat-card:hover { transform: translateY(-6px); }
+  .cat-card .cat-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.5s ease;
+  }
+  .cat-card:hover .cat-bg { transform: scale(1.05); }
+  .cat-card-1 .cat-bg { background: linear-gradient(160deg, #f2e0d0, #d4927a); }
+  .cat-card-2 .cat-bg { background: linear-gradient(160deg, #d4e4c8, #8a9e7e); }
+  .cat-card-3 .cat-bg { background: linear-gradient(160deg, #f0e0a8, #e8b84b); }
+  .cat-card-4 .cat-bg { background: linear-gradient(160deg, #e0d0e8, #a07898); }
+  .cat-card-5 .cat-bg { background: linear-gradient(160deg, #d0e8e8, #70a8a8); }
+  .cat-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='20' cy='20' r='16' stroke='white' stroke-opacity='0.08' stroke-width='1'/%3E%3Ccircle cx='20' cy='20' r='8' stroke='white' stroke-opacity='0.06' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") center/40px;
+    z-index: 1;
+  }
+  .cat-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    font-size: 3.5rem;
+    z-index: 2;
+    transition: transform 0.3s;
+  }
+  .cat-card:hover .cat-icon { transform: translate(-50%, -65%) scale(1.1); }
+  .cat-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 18px;
+    background: linear-gradient(to top, rgba(30,15,5,0.7) 0%, transparent 100%);
+    z-index: 3;
+    color: #fff;
+  }
+  .cat-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .cat-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+    text-transform: uppercase;
+  }
+
+  /* ── FEATURED PRODUCTS ── */
+  .products-section { background: var(--cream); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .product-card {
+    background: var(--warm-white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(61,35,20,0.12);
+  }
+  .product-img {
+    width: 100%; aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-img-1 { background: linear-gradient(145deg, #f2e0d0, #e0c0a8); }
+  .product-img-2 { background: linear-gradient(145deg, #d4e4c8, #b8d4a0); }
+  .product-img-3 { background: linear-gradient(145deg, #f0e0a8, #e0c878); }
+  .product-img-4 { background: linear-gradient(145deg, #e0d0e8, #c8b0d8); }
+  .product-img-5 { background: linear-gradient(145deg, #d0e8e8, #a8d0d0); }
+  .product-img-6 { background: linear-gradient(145deg, #f0d8c0, #e0b898); }
+  .product-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--terracotta);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .product-wishlist {
+    position: absolute; top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .product-wishlist:hover { background: white; transform: scale(1.1); }
+  .product-info { padding: 18px 20px 22px; }
+  .product-cat {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 6px;
+  }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .product-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--light-text);
+    font-style: italic;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+  }
+  .product-price .old {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-right: 6px;
+  }
+  .btn-add {
+    background: var(--deep-brown);
+    color: var(--soft-gold);
+    border: none; cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn-add:hover { background: var(--terracotta); transform: scale(1.03); }
+
+  /* ── FREE PATTERNS ── */
+  .patterns-section {
+    background: var(--deep-brown);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .patterns-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='40' cy='40' r='35' stroke='white' stroke-opacity='0.04' stroke-width='1'/%3E%3Ccircle cx='40' cy='40' r='20' stroke='white' stroke-opacity='0.03' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 80px;
+    pointer-events: none;
+  }
+  .patterns-section .section-eyebrow { color: var(--soft-gold); }
+  .patterns-section .section-eyebrow::before,
+  .patterns-section .section-eyebrow::after { background: var(--soft-gold); }
+  .patterns-section .section-title { color: #fff; }
+  .patterns-section .section-sub { color: rgba(255,255,255,0.7); }
+  .patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .pattern-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .pattern-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.25);
+  }
+  .pattern-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .pattern-cat {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--soft-gold);
+    margin-bottom: 8px;
+  }
+  .pattern-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .pattern-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .pattern-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--soft-gold);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pattern-link::after { content: '→'; }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    background: var(--blush);
+    display: flex;
+    align-items: stretch;
+    min-height: 500px;
+    padding: 0;
+    overflow: hidden;
+  }
+  .about-image-side {
+    flex: 1;
+    background: linear-gradient(145deg, #d4927a, #c0694a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+  }
+  .about-image-side::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='30' cy='30' r='25' stroke='white' stroke-opacity='0.1' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 60px;
+  }
+  .about-text-side {
+    flex: 1;
+    padding: 72px 64px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .about-text-side .section-eyebrow { justify-content: flex-start; }
+  .about-text-side .section-eyebrow::after { display: none; }
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--deep-brown);
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .about-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    color: var(--text);
+    line-height: 1.85;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  .about-stats {
+    display: flex; gap: 32px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .stat {
+    border-left: 3px solid var(--terracotta);
+    padding-left: 14px;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light-text);
+    margin-top: 4px;
+  }
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--deep-brown);
+    color: var(--soft-gold);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    width: fit-content;
+    border: none; cursor: pointer;
+  }
+  .btn-dark:hover { background: var(--terracotta); transform: translateY(-2px); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--warm-white); }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .testimonial {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 30px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .testimonial::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--dusty-rose);
+    line-height: 1;
+    opacity: 0.6;
+  }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .author-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .av1 { background: linear-gradient(135deg, #f2e0d0, #d4927a); }
+  .av2 { background: linear-gradient(135deg, #d4e4c8, #8a9e7e); }
+  .av3 { background: linear-gradient(135deg, #f0e0a8, #e8b84b); }
+  .author-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--deep-brown);
+  }
+  .author-location {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    color: var(--light-text);
+    letter-spacing: 0.06em;
+  }
+  .stars { color: var(--yarn-gold); font-size: 0.85rem; margin-bottom: 4px; }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-section {
+    background: var(--sage);
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .newsletter-section .section-eyebrow { color: var(--deep-brown); }
+  .newsletter-section .section-eyebrow::before,
+  .newsletter-section .section-eyebrow::after { background: var(--deep-brown); }
+  .newsletter-section .section-title { color: var(--deep-brown); }
+  .newsletter-section .section-sub { color: rgba(30,15,5,0.7); }
+  .newsletter-form {
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 0;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(61,35,20,0.15);
+  }
+  .newsletter-form input {
+    flex: 1;
+    border: none; outline: none;
+    padding: 16px 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    background: #fff;
+    color: var(--text);
+  }
+  .newsletter-form input::placeholder { color: var(--light-text); font-style: italic; }
+  .newsletter-form button {
+    background: var(--deep-brown);
+    color: var(--soft-gold);
+    border: none; cursor: pointer;
+    padding: 16px 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-form button:hover { background: var(--terracotta); }
+  .newsletter-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    color: rgba(30,15,5,0.6);
+    margin-top: 14px;
+    font-style: italic;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.8);
+    padding: 72px 40px 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto 56px;
+  }
+  .footer-brand .brand-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--soft-gold);
+    margin-bottom: 8px;
+  }
+  .footer-brand .brand-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .footer-brand p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.75;
+    margin-bottom: 22px;
+  }
+  .footer-social { display: flex; gap: 10px; }
+  .footer-social a {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    transition: all 0.2s;
+  }
+  .footer-social a:hover { background: var(--terracotta); color: #fff; transform: translateY(-2px); }
+  .footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 0.06em;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.55);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.92rem;
+    transition: color 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .footer-col ul li a:hover { color: var(--soft-gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.35);
+  }
+  .footer-bottom p span { color: var(--dusty-rose); }
+  .footer-bottom .payment-icons { display: flex; gap: 8px; font-size: 1.2rem; }
+
+  /* ── SCROLL TO TOP ── */
+  #scrollTop {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 44px; height: 44px;
+    background: var(--terracotta);
+    color: #fff; border: none; cursor: pointer;
+    border-radius: 50%;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(192,105,74,0.4);
+    transition: all 0.3s;
+    opacity: 0; pointer-events: none;
+    z-index: 50;
+  }
+  #scrollTop.visible { opacity: 1; pointer-events: all; }
+  #scrollTop:hover { background: var(--deep-brown); transform: translateY(-2px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .header-inner { padding: 14px 20px; }
+    nav { display: none; }
+    section { padding: 60px 20px; }
+    .hero-content { padding: 0 28px; }
+    .about-strip { flex-direction: column; }
+    .about-image-side { min-height: 240px; }
+    .about-text-side { padding: 40px 28px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .top-bar { display: none; }
+  }
+  @media (max-width: 600px) {
+    .hero { height: 80vh; }
+    .hero-title { font-size: 2rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .newsletter-form { flex-direction: column; border-radius: 12px; }
+    .newsletter-form input { border-radius: 12px 12px 0 0; }
+    .newsletter-form button { border-radius: 0 0 12px 12px; padding: 14px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement-bar">
+  🧶 <span>New Collection!</span> &nbsp;Handcrafted crochet items — Made with love &nbsp;·&nbsp; Free delivery on orders over KSh 2,000
+</div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="social-links">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">WhatsApp</a>
+    <a href="#">TikTok</a>
+  </div>
+  <div class="top-right">
+    <a href="custom-order.html">Custom Orders</a>
+    <a href="track-order.html">Track Order</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo-area">
+      <!-- Inline SVG recreation of Duro's Crafts logo -->
+      <svg width="56" height="56" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+        <!-- Yarn ball -->
+        <circle cx="100" cy="130" r="28" fill="none" stroke="#3d2314" stroke-width="5"/>
+        <ellipse cx="100" cy="130" rx="28" ry="10" fill="none" stroke="#3d2314" stroke-width="3"/>
+        <path d="M76 118 Q100 108 124 118" fill="none" stroke="#3d2314" stroke-width="2.5"/>
+        <path d="M74 130 Q100 150 126 130" fill="none" stroke="#3d2314" stroke-width="2.5"/>
+        <!-- Thread up to hands -->
+        <path d="M90 102 Q85 75 70 55" fill="none" stroke="#3d2314" stroke-width="3"/>
+        <path d="M110 102 Q115 75 130 55" fill="none" stroke="#3d2314" stroke-width="3"/>
+        <!-- Left hand simplified -->
+        <path d="M45 65 Q55 45 75 50 Q80 48 85 52 Q90 48 92 54" fill="none" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/>
+        <path d="M50 70 Q48 55 60 50" fill="none" stroke="#3d2314" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Right hand simplified -->
+        <path d="M155 65 Q145 45 125 50 Q120 48 115 52 Q110 48 108 54" fill="none" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/>
+        <path d="M150 70 Q152 55 140 50" fill="none" stroke="#3d2314" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Crochet hook -->
+        <path d="M100 30 L100 80 Q100 88 95 90" fill="none" stroke="#3d2314" stroke-width="5" stroke-linecap="round"/>
+        <!-- Heart -->
+        <text x="97" y="170" font-size="10" fill="#3d2314" font-family="serif">♥</text>
+      </svg>
+      <div class="logo-text">
+        <span class="brand-name">Duro's Crafts</span>
+        <span class="brand-tagline">Handmade is Heartfelt</span>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="patterns.html">Free Patterns</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="custom-order.html" class="nav-cta">Custom Order</a>
+    </nav>
+    <div class="header-icons">
+      <button title="Search">🔍</button>
+      <button title="Wishlist">🤍</button>
+      <a href="#" style="position:relative" title="Cart">
+        🛒
+        <span class="cart-badge">3</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="hero" style="padding:0;">
+  <div class="hero-slides">
+    <div class="hero-slide slide-1 active">
+      <div class="bg"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">New Arrival</div>
+        <h1 class="hero-title">The Sunset<br>Boho Blanket</h1>
+        <p class="hero-desc">Wrap yourself in warmth. Handcrafted with premium cotton yarn — every stitch made with love.</p>
+        <div class="hero-buttons">
+          <a href="shop.html" class="btn-primary">Shop Now</a>
+          <a href="patterns.html" class="btn-ghost">Free Pattern</a>
+        </div>
+      </div>
+      <svg class="hero-yarn" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="150" fill="none" stroke="white" stroke-width="2"/>
+        <ellipse cx="200" cy="200" rx="150" ry="60" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="200" cy="200" rx="60" ry="150" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="200" cy="200" r="80" fill="none" stroke="white" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="hero-slide slide-2">
+      <div class="bg"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Featured Pattern</div>
+        <h1 class="hero-title">Learn to<br>Crochet Today</h1>
+        <p class="hero-desc">Beginner-friendly guides and video tutorials to start your crochet journey with confidence.</p>
+        <div class="hero-buttons">
+          <a href="patterns.html#beginners" class="btn-primary">Start Learning</a>
+          <a href="tutorials.html" class="btn-ghost">View Tutorials</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide slide-3">
+      <div class="bg"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Custom Orders</div>
+        <h1 class="hero-title">Made Just<br>For You ♥</h1>
+        <p class="hero-desc">Personalized crochet pieces crafted to your taste — gifts, home décor, baby items & more.</p>
+        <div class="hero-buttons">
+          <a href="custom-order.html" class="btn-primary">Order Custom</a>
+          <a href="gallery.html" class="btn-ghost">See Gallery</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide slide-4">
+      <div class="bg"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">PDF Patterns</div>
+        <h1 class="hero-title">Download &amp;<br>Create Instantly</h1>
+        <p class="hero-desc">Printable ad-free pattern PDFs with step-by-step photo guides for every skill level.</p>
+        <div class="hero-buttons">
+          <a href="patterns.html" class="btn-primary">Browse Patterns</a>
+          <a href="patterns.html#free" class="btn-ghost">Free Samples</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="hero-nav hero-prev" onclick="changeSlide(-1)">‹</button>
+  <button class="hero-nav hero-next" onclick="changeSlide(1)">›</button>
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="goToSlide(0)"></button>
+    <button class="hero-dot" onclick="goToSlide(1)"></button>
+    <button class="hero-dot" onclick="goToSlide(2)"></button>
+    <button class="hero-dot" onclick="goToSlide(3)"></button>
+  </div>
+</section>
+
+<!-- QUICK NAV HUB -->
+<section style="background:var(--deep-brown); padding:32px 40px;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:0.75rem; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:var(--soft-gold); margin-bottom:20px; opacity:0.8;">Quick Navigate</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px;">
+      <a href="shop.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">🛍️</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Shop</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">100+ items</span>
+      </a>
+      <a href="patterns.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">📖</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Free Patterns</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">120+ patterns</span>
+      </a>
+      <a href="tutorials.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">🎬</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Tutorials</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Video guides</span>
+      </a>
+      <a href="custom-order.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">✂️</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Custom Order</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Made for you</span>
+      </a>
+      <a href="about.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">🧶</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">About Duro</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Our story</span>
+      </a>
+      <a href="contact.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">💬</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Contact</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Get in touch</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories-section" id="shop">
+  <div class="section-header">
+    <div class="section-eyebrow">Explore</div>
+    <h2 class="section-title">Shop by Category</h2>
+    <p class="section-sub">From cosy blankets to wearable art — find your perfect handmade piece.</p>
+  </div>
+  <div class="categories-grid">
+    <a href="shop.html?cat=scarves" class="cat-card cat-card-1">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🧣</div>
+      <div class="cat-info">
+        <div class="cat-name">Scarves & Wraps</div>
+        <div class="cat-count">24 items</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=baby" class="cat-card cat-card-2">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🧸</div>
+      <div class="cat-info">
+        <div class="cat-name">Baby Items</div>
+        <div class="cat-count">31 items</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=home" class="cat-card cat-card-3">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🏠</div>
+      <div class="cat-info">
+        <div class="cat-name">Home Décor</div>
+        <div class="cat-count">18 items</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=hats" class="cat-card cat-card-4">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">👒</div>
+      <div class="cat-info">
+        <div class="cat-name">Hats & Beanies</div>
+        <div class="cat-count">15 items</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=bags" class="cat-card cat-card-5">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🛍️</div>
+      <div class="cat-info">
+        <div class="cat-name">Bags & Totes</div>
+        <div class="cat-count">12 items</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="products-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Bestsellers</div>
+    <h2 class="section-title">Handpicked for You</h2>
+    <p class="section-sub">Our most-loved pieces — each one made to order with premium yarn and lots of care.</p>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img product-img-1">
+        <span>🧶</span>
+        <span class="product-badge">Bestseller</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Blankets</div>
+        <div class="product-name">Sunset Boho Blanket</div>
+        <div class="product-desc">Chunky cotton, warm terracotta tones — perfect for the living room or a gift.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 2,450</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-2">
+        <span>🧸</span>
+        <span class="product-badge">New</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Baby Items</div>
+        <div class="product-name">Soft Amigurumi Set</div>
+        <div class="product-desc">Adorable handmade baby toys — safe, soft, and full of personality.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 1,080</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-3">
+        <span>🛍️</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Bags & Totes</div>
+        <div class="product-name">Market Tote Bag</div>
+        <div class="product-desc">Stylish, sturdy, and eco-friendly. Your everyday carry, handcrafted.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 860</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-4">
+        <span>👒</span>
+        <span class="product-badge">Sale</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Hats & Beanies</div>
+        <div class="product-name">Cosy Winter Beanie</div>
+        <div class="product-desc">Keep warm in style. Custom colours available on request.</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old">KSh 600</span>KSh 425</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-5">
+        <span>🏠</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Home Décor</div>
+        <div class="product-name">Macramé Wall Hanging</div>
+        <div class="product-desc">Transform any wall into a work of art with this boho woven piece.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 1,590</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-6">
+        <span>🧣</span>
+        <span class="product-badge">Custom</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Scarves & Wraps</div>
+        <div class="product-name">Infinity Scarf</div>
+        <div class="product-desc">Lightweight, cosy, and beautifully textured — choose your colour.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 770</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:44px;">
+    <a href="shop.html" class="btn-dark">View All Products →</a>
+  </div>
+</section>
+
+<!-- FREE PATTERNS -->
+<section class="patterns-section" id="patterns">
+  <div class="section-header">
+    <div class="section-eyebrow">Free Resources</div>
+    <h2 class="section-title">Free Crochet Patterns</h2>
+    <p class="section-sub">Browse hundreds of free patterns, stitch guides & tutorials for all skill levels.</p>
+  </div>
+  <div class="patterns-grid">
+    <a href="patterns.html#beginners" class="pattern-card">
+      <span class="pattern-icon">📖</span>
+      <div class="pattern-cat">Beginners</div>
+      <div class="pattern-title">How to Crochet: Complete Guide</div>
+      <div class="pattern-desc">Start from zero — your step-by-step beginner guide to crochet, with photos for every stitch.</div>
+      <div class="pattern-link">Read Guide</div>
+    </a>
+    <a href="patterns.html#garments" class="pattern-card">
+      <span class="pattern-icon">🧤</span>
+      <div class="pattern-cat">Garments</div>
+      <div class="pattern-title">Free Cardigan Pattern</div>
+      <div class="pattern-desc">A stunning beginner-friendly crochet cardigan pattern, available in all sizes.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="patterns.html#home-decor" class="pattern-card">
+      <span class="pattern-icon">🏡</span>
+      <div class="pattern-cat">Home Décor</div>
+      <div class="pattern-title">Sunburst Table Runner</div>
+      <div class="pattern-desc">A cheerful table runner perfect for any home — free pattern with step-by-step photos.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="patterns.html#stitches" class="pattern-card">
+      <span class="pattern-icon">📚</span>
+      <div class="pattern-cat">Stitch Library</div>
+      <div class="pattern-title">50+ Crochet Stitch Guides</div>
+      <div class="pattern-desc">Expand your skills with our growing library of beautifully illustrated stitch tutorials.</div>
+      <div class="pattern-link">Browse Stitches</div>
+    </a>
+  </div>
+  <div style="text-align:center; margin-top:44px;">
+    <a href="patterns.html" style="display:inline-flex; align-items:center; gap:8px; color:var(--soft-gold); font-family:'Cormorant Garamond',serif; font-size:0.95rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border: 2px solid rgba(255,255,255,0.3); padding:14px 32px; border-radius:50px; transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.7)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)'">See All Free Patterns →</a>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip" id="about">
+  <div class="about-image-side">
+    <span style="position:relative;z-index:2;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.2))">🧶</span>
+  </div>
+  <div class="about-text-side">
+    <div class="section-eyebrow">Our Story</div>
+    <h2 class="about-title">Every Stitch Tells a Story</h2>
+    <p class="about-body">
+      Hi there — I'm Duro, the hands and heart behind Duro's Crafts. What started as a quiet hobby during long evenings has grown into a little world of handmade love. Every piece I create carries intention, care, and creativity — because I believe handmade is always heartfelt.
+    </p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Patterns Created</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5 ★</div>
+        <div class="stat-label">Avg. Rating</div>
+      </div>
+    </div>
+    <a href="about.html" class="btn-dark">Learn More About Me →</a>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Reviews</div>
+    <h2 class="section-title">What Customers Are Saying</h2>
+    <p class="section-sub">Handmade with love, received with joy — hear from people who've worn, gifted & treasured Duro's Crafts.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">
+        The blanket I ordered exceeded every expectation. The stitching is immaculate and the colours are even more beautiful in person. I've already ordered two more as gifts!
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar av1">👩🏽</div>
+        <div>
+          <div class="author-name">Adaeze Okonkwo</div>
+          <div class="author-location">Lagos, Nigeria</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">
+        I've been crocheting for years and the free patterns on this site are the best I've found — clear, beautifully photographed, and so creative. A true gem!
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar av2">👩🏿</div>
+        <div>
+          <div class="author-name">Fatima Al-Hassan</div>
+          <div class="author-location">Abuja, Nigeria</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">
+        Ordered a custom baby set for my sister's shower and it was the star of the day. So carefully made, packaged beautifully, and delivered on time. Highly recommend!
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar av3">👩🏾</div>
+        <div>
+          <div class="author-name">Chidinma Eze</div>
+          <div class="author-location">Enugu, Nigeria</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="section-eyebrow">Stay Connected</div>
+  <h2 class="section-title">Join the Crafts Circle</h2>
+  <p class="section-sub">Get free patterns, early access to new items, and crochet tips delivered straight to your inbox.</p>
+  <form class="newsletter-form" onsubmit="return false;">
+    <input type="email" placeholder="Your email address…">
+    <button type="submit">Subscribe</button>
+  </form>
+  <p class="newsletter-note">🤝 No spam, ever. Unsubscribe any time.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand-logo">Duro's Crafts ♥</div>
+      <div class="brand-tagline">Handmade is Heartfelt.</div>
+      <p>Creating beautiful, handcrafted crochet items with love and care. Every piece is made to order — because you deserve something truly special.</p>
+      <div class="footer-social">
+        <a href="#" title="Instagram">📸</a>
+        <a href="#" title="Facebook">👍</a>
+        <a href="#" title="WhatsApp">💬</a>
+        <a href="#" title="TikTok">🎵</a>
+        <a href="#" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html">All Products</a></li>
+        <li><a href="shop.html?cat=blankets">Blankets</a></li>
+        <li><a href="shop.html?cat=baby">Baby Items</a></li>
+        <li><a href="shop.html?cat=home">Home Décor</a></li>
+        <li><a href="shop.html?cat=accessories">Accessories</a></li>
+        <li><a href="shop.html?cat=patterns">PDF Patterns</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="patterns.html">Free Patterns</a></li>
+        <li><a href="tutorials.html">Video Tutorials</a></li>
+        <li><a href="patterns.html#stitches">Stitch Library</a></li>
+        <li><a href="patterns.html#beginners">Beginner's Guide</a></li>
+        <li><a href="patterns.html#bundles">Pattern Bundles</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="about.html">About Duro</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="custom-order.html">Custom Orders</a></li>
+        <li><a href="shipping.html">Shipping Policy</a></li>
+        <li><a href="returns.html">Returns & Refunds</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Duro's Crafts. Made with <span>♥</span> — Handmade is Heartfelt.</p>
+    <div class="payment-icons" title="Accepted payments">
+      💳 🏦 📱
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Hero Slider
+  let current = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  let autoTimer;
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    resetAuto();
+  }
+
+  function changeSlide(dir) { goToSlide(current + dir); }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => changeSlide(1), 5000);
+  }
+
+  resetAuto();
+
+  // Scroll to top visibility
+  window.addEventListener('scroll', () => {
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Wishlist toggle
+  document.querySelectorAll('.product-wishlist').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+    });
+  });
+
+  // Add to cart feedback
+  document.querySelectorAll('.btn-add').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const orig = btn.textContent;
+      btn.textContent = 'Added! ✓';
+      btn.style.background = 'var(--dark-sage)';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+</script>
+</body>
+</html>

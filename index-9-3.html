@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duro's Crafts – Handmade is Heartfelt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#faf6f0; --warm-white:#fffdf9; --blush:#f2e0d0; --dusty-rose:#d4927a;
+    --terracotta:#c0694a; --deep-brown:#3d2314; --mid-brown:#7a4a30;
+    --sage:#8a9e7e; --dark-sage:#5a7050; --yarn-gold:#e8b84b;
+    --soft-gold:#f0d080; --ink:#1a1008; --text:#3d2314;
+    --light-text:#8a6a50; --border:rgba(192,105,74,0.2);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Cormorant Garamond',serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+  /* PAGE SWITCHING */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* ANNOUNCEMENT */
+  .announcement-bar{background:var(--deep-brown);color:var(--soft-gold);text-align:center;padding:10px 20px;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Cormorant Garamond',serif;font-weight:600;}
+  .announcement-bar span{color:var(--yarn-gold);}
+
+  /* TOP BAR */
+  .top-bar{background:var(--warm-white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:8px 40px;font-size:.8rem;color:var(--light-text);letter-spacing:.08em;}
+  .top-bar .social-links{display:flex;gap:16px;}
+  .top-bar .social-links a,.top-bar .top-right a{color:var(--mid-brown);text-decoration:none;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;}
+  .top-bar .top-right{display:flex;gap:20px;}
+  .top-bar a:hover{color:var(--terracotta)!important;}
+
+  /* HEADER */
+  header{background:var(--warm-white);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(61,35,20,.08);}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;max-width:1280px;margin:0 auto;}
+  .logo-area{display:flex;align-items:center;gap:14px;text-decoration:none;cursor:pointer;}
+  .logo-text{display:flex;flex-direction:column;line-height:1;}
+  .logo-text .brand-name{font-family:'Dancing Script',cursive;font-size:1.9rem;color:var(--deep-brown);font-weight:700;}
+  .logo-text .brand-tagline{font-family:'Cormorant Garamond',serif;font-size:.72rem;color:var(--light-text);letter-spacing:.18em;text-transform:uppercase;font-style:italic;margin-top:3px;}
+  nav{display:flex;gap:6px;align-items:center;}
+  nav a{text-decoration:none;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:4px;transition:all .2s;position:relative;cursor:pointer;}
+  nav a::after{content:'';position:absolute;bottom:4px;left:14px;right:14px;height:1px;background:var(--terracotta);transform:scaleX(0);transition:transform .25s ease;}
+  nav a:hover::after,nav a.active::after{transform:scaleX(1);}
+  nav a:hover,nav a.active{color:var(--terracotta);}
+  .nav-cta{background:var(--deep-brown)!important;color:var(--soft-gold)!important;border-radius:30px!important;padding:9px 22px!important;font-size:.82rem!important;letter-spacing:.14em!important;transition:background .25s,transform .2s!important;}
+  .nav-cta:hover{background:var(--terracotta)!important;transform:translateY(-1px)!important;}
+  .nav-cta::after{display:none!important;}
+  .header-icons{display:flex;gap:18px;align-items:center;}
+  .header-icons button,.header-icons a{background:none;border:none;cursor:pointer;color:var(--mid-brown);font-size:1.1rem;text-decoration:none;transition:color .2s;position:relative;}
+  .header-icons button:hover,.header-icons a:hover{color:var(--terracotta);}
+  .cart-badge{position:absolute;top:-6px;right:-8px;background:var(--terracotta);color:white;font-size:.6rem;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;}
+
+  /* HERO */
+  .hero{position:relative;height:90vh;min-height:560px;overflow:hidden;}
+  .hero-slides{width:100%;height:100%;}
+  .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;display:flex;align-items:center;justify-content:flex-start;}
+  .hero-slide.active{opacity:1;}
+  .hero-slide .bg{position:absolute;inset:0;z-index:0;}
+  .slide-1 .bg{background:linear-gradient(135deg,#e8d5c4 0%,#d4927a 40%,#c0694a 100%);}
+  .slide-2 .bg{background:linear-gradient(135deg,#c8d8c0 0%,#8a9e7e 45%,#5a7050 100%);}
+  .slide-3 .bg{background:linear-gradient(135deg,#e8d0a0 0%,#e8b84b 45%,#c09030 100%);}
+  .slide-4 .bg{background:linear-gradient(135deg,#d8c8e0 0%,#a07898 45%,#785070 100%);}
+  .hero-slide .bg::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+  .hero-content{position:relative;z-index:2;padding:0 80px;max-width:640px;animation:heroIn 1s ease both;}
+  @keyframes heroIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  .hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .hero-eyebrow::before{content:'';width:32px;height:1px;background:rgba(255,255,255,.6);}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:20px;text-shadow:0 2px 20px rgba(0,0,0,.2);}
+  .hero-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:rgba(255,255,255,.9);line-height:1.7;margin-bottom:36px;font-style:italic;}
+  .hero-buttons{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{background:#fff;color:var(--terracotta);padding:14px 34px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(0,0,0,.15);display:inline-block;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2);}
+  .btn-ghost{background:transparent;color:#fff;padding:14px 34px;border-radius:50px;border:2px solid rgba(255,255,255,.7);font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .25s;}
+  .btn-ghost:hover{background:rgba(255,255,255,.15);border-color:#fff;}
+  .hero-dots{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
+  .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;border:none;}
+  .hero-dot.active{background:#fff;width:24px;border-radius:4px;}
+  .hero-nav{position:absolute;top:50%;z-index:10;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;cursor:pointer;color:#fff;font-size:1.4rem;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:background .2s;}
+  .hero-nav:hover{background:rgba(255,255,255,.35);}
+  .hero-prev{left:24px;} .hero-next{right:24px;}
+  .hero-yarn{position:absolute;bottom:0;right:0;width:420px;height:420px;opacity:.12;z-index:1;pointer-events:none;}
+
+  /* SECTIONS COMMON */
+  section{padding:90px 40px;}
+  .section-eyebrow{font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--terracotta);margin-bottom:10px;display:flex;align-items:center;gap:12px;}
+  .section-eyebrow::before,.section-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:var(--terracotta);opacity:.5;}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--deep-brown);text-align:center;margin-bottom:14px;line-height:1.2;}
+  .section-sub{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--light-text);text-align:center;font-style:italic;margin-bottom:56px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;}
+  .section-header{text-align:center;}
+
+  /* PAGE HERO */
+  .page-hero{background:var(--deep-brown);padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+  .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='30' cy='30' r='25' stroke='white' stroke-opacity='0.04' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 0 0/60px;}
+  .page-hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--soft-gold);margin-bottom:12px;opacity:.8;position:relative;}
+  .page-hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:#fff;margin-bottom:14px;position:relative;}
+  .page-hero-sub{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(255,255,255,.7);font-style:italic;max-width:520px;margin:0 auto;position:relative;}
+
+  /* BREADCRUMB */
+  .breadcrumb{padding:14px 40px;background:var(--warm-white);border-bottom:1px solid var(--border);font-family:'Cormorant Garamond',serif;font-size:.82rem;color:var(--light-text);}
+  .breadcrumb a{color:var(--terracotta);text-decoration:none;cursor:pointer;}
+
+  /* CATEGORIES */
+  .categories-section{background:var(--warm-white);}
+  .categories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:1200px;margin:0 auto;}
+  .cat-card{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;text-decoration:none;display:block;aspect-ratio:3/4;transition:transform .3s;}
+  .cat-card:hover{transform:translateY(-6px);}
+  .cat-card .cat-bg{position:absolute;inset:0;transition:transform .5s ease;}
+  .cat-card:hover .cat-bg{transform:scale(1.05);}
+  .cat-card-1 .cat-bg{background:linear-gradient(160deg,#f2e0d0,#d4927a);}
+  .cat-card-2 .cat-bg{background:linear-gradient(160deg,#d4e4c8,#8a9e7e);}
+  .cat-card-3 .cat-bg{background:linear-gradient(160deg,#f0e0a8,#e8b84b);}
+  .cat-card-4 .cat-bg{background:linear-gradient(160deg,#e0d0e8,#a07898);}
+  .cat-card-5 .cat-bg{background:linear-gradient(160deg,#d0e8e8,#70a8a8);}
+  .cat-card::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='20' cy='20' r='16' stroke='white' stroke-opacity='0.08' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") center/40px;z-index:1;}
+  .cat-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:3.5rem;z-index:2;transition:transform .3s;}
+  .cat-card:hover .cat-icon{transform:translate(-50%,-65%) scale(1.1);}
+  .cat-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;background:linear-gradient(to top,rgba(30,15,5,.7) 0%,transparent 100%);z-index:3;color:#fff;}
+  .cat-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:4px;}
+  .cat-count{font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.12em;opacity:.85;text-transform:uppercase;}
+
+  /* PRODUCTS */
+  .products-section{background:var(--cream);}
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px;max-width:1200px;margin:0 auto;}
+  .product-card{background:var(--warm-white);border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:all .3s;cursor:pointer;position:relative;}
+  .product-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(61,35,20,.12);}
+  .product-card.hidden{display:none;}
+  .product-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative;overflow:hidden;}
+  .product-img-1{background:linear-gradient(145deg,#f2e0d0,#e0c0a8);}
+  .product-img-2{background:linear-gradient(145deg,#d4e4c8,#b8d4a0);}
+  .product-img-3{background:linear-gradient(145deg,#f0e0a8,#e0c878);}
+  .product-img-4{background:linear-gradient(145deg,#e0d0e8,#c8b0d8);}
+  .product-img-5{background:linear-gradient(145deg,#d0e8e8,#a8d0d0);}
+  .product-img-6{background:linear-gradient(145deg,#f0d8c0,#e0b898);}
+  .product-badge{position:absolute;top:12px;left:12px;background:var(--terracotta);color:#fff;font-family:'Cormorant Garamond',serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+  .product-wishlist{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(255,255,255,.9);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s;}
+  .product-wishlist:hover{background:white;transform:scale(1.1);}
+  .product-info{padding:18px 20px 22px;}
+  .product-cat{font-family:'Cormorant Garamond',serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:6px;}
+  .product-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--deep-brown);margin-bottom:8px;line-height:1.3;}
+  .product-desc{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--light-text);font-style:italic;margin-bottom:14px;line-height:1.5;}
+  .product-footer{display:flex;align-items:center;justify-content:space-between;}
+  .product-price{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deep-brown);}
+  .product-price .old{font-size:.85rem;color:var(--light-text);text-decoration:line-through;font-weight:400;margin-right:6px;}
+  .btn-add{background:var(--deep-brown);color:var(--soft-gold);border:none;cursor:pointer;padding:8px 16px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;}
+  .btn-add:hover{background:var(--terracotta);transform:scale(1.03);}
+
+  /* PATTERNS */
+  .patterns-section{background:var(--deep-brown);color:#fff;position:relative;overflow:hidden;}
+  .patterns-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='40' cy='40' r='35' stroke='white' stroke-opacity='0.04' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 0 0/80px;pointer-events:none;}
+  .patterns-section .section-eyebrow{color:var(--soft-gold);}
+  .patterns-section .section-eyebrow::before,.patterns-section .section-eyebrow::after{background:var(--soft-gold);}
+  .patterns-section .section-title{color:#fff;}
+  .patterns-section .section-sub{color:rgba(255,255,255,.7);}
+  .patterns-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1200px;margin:0 auto;}
+  .pattern-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:all .3s;backdrop-filter:blur(8px);}
+  .pattern-card:hover{background:rgba(255,255,255,.1);transform:translateY(-4px);border-color:rgba(255,255,255,.25);}
+  .pattern-icon{font-size:2.5rem;margin-bottom:16px;display:block;}
+  .pattern-cat{font-family:'Cormorant Garamond',serif;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--soft-gold);margin-bottom:8px;}
+  .pattern-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;font-weight:700;margin-bottom:10px;line-height:1.3;}
+  .pattern-desc{font-family:'Cormorant Garamond',serif;font-size:.92rem;color:rgba(255,255,255,.65);font-style:italic;line-height:1.6;margin-bottom:18px;}
+  .pattern-link{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft-gold);display:flex;align-items:center;gap:6px;}
+  .pattern-link::after{content:'→';}
+
+  /* ABOUT STRIP */
+  .about-strip{background:var(--blush);display:flex;align-items:stretch;min-height:500px;padding:0;overflow:hidden;}
+  .about-image-side{flex:1;background:linear-gradient(145deg,#d4927a,#c0694a);display:flex;align-items:center;justify-content:center;font-size:8rem;position:relative;min-height:400px;overflow:hidden;}
+  .about-image-side::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='30' cy='30' r='25' stroke='white' stroke-opacity='0.1' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 0 0/60px;}
+  .about-text-side{flex:1;padding:72px 64px;display:flex;flex-direction:column;justify-content:center;}
+  .about-text-side .section-eyebrow{justify-content:flex-start;}
+  .about-text-side .section-eyebrow::after{display:none;}
+  .about-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;color:var(--deep-brown);margin-bottom:18px;line-height:1.2;}
+  .about-body{font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--text);line-height:1.85;margin-bottom:28px;font-style:italic;}
+  .about-stats{display:flex;gap:32px;margin-bottom:32px;flex-wrap:wrap;}
+  .stat{border-left:3px solid var(--terracotta);padding-left:14px;}
+  .stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--terracotta);line-height:1;}
+  .stat-label{font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--light-text);margin-top:4px;}
+  .btn-dark{display:inline-flex;align-items:center;gap:10px;background:var(--deep-brown);color:var(--soft-gold);padding:14px 32px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:all .25s;width:fit-content;border:none;cursor:pointer;}
+  .btn-dark:hover{background:var(--terracotta);transform:translateY(-2px);}
+  .btn-terracotta{display:inline-flex;align-items:center;gap:8px;background:var(--terracotta);color:#fff;padding:13px 30px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .25s;border:none;cursor:pointer;}
+  .btn-terracotta:hover{background:var(--mid-brown);transform:translateY(-2px);}
+
+  /* TESTIMONIALS */
+  .testimonials-section{background:var(--warm-white);}
+  .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+  .testimonial{background:var(--cream);border-radius:16px;padding:30px 28px;border:1px solid var(--border);position:relative;}
+  .testimonial::before{content:'"';position:absolute;top:-10px;left:24px;font-family:'Playfair Display',serif;font-size:5rem;color:var(--dusty-rose);line-height:1;opacity:.6;}
+  .testimonial-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--text);line-height:1.8;font-style:italic;margin-bottom:24px;padding-top:16px;}
+  .testimonial-author{display:flex;align-items:center;gap:14px;}
+  .author-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+  .av1{background:linear-gradient(135deg,#f2e0d0,#d4927a);}
+  .av2{background:linear-gradient(135deg,#d0d8c8,#8a9e7e);}
+  .av3{background:linear-gradient(135deg,#e8e0c8,#c8a860);}
+  .author-name{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:var(--deep-brown);}
+  .author-location{font-family:'Cormorant Garamond',serif;font-size:.78rem;color:var(--light-text);letter-spacing:.08em;}
+  .stars{color:var(--yarn-gold);font-size:1rem;margin-bottom:14px;letter-spacing:2px;}
+
+  /* NEWSLETTER */
+  .newsletter-section{background:var(--deep-brown);padding:80px 40px;text-align:center;}
+  .newsletter-section .section-eyebrow{color:var(--soft-gold);justify-content:center;}
+  .newsletter-section .section-eyebrow::before,.newsletter-section .section-eyebrow::after{background:var(--soft-gold);}
+  .newsletter-section .section-title{color:#fff;}
+  .newsletter-section .section-sub{color:rgba(255,255,255,.7);}
+  .newsletter-form{display:flex;max-width:480px;margin:0 auto 16px;border-radius:50px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.2);}
+  .newsletter-form input{flex:1;padding:16px 24px;border:none;outline:none;font-family:'Cormorant Garamond',serif;font-size:1rem;background:var(--warm-white);color:var(--text);}
+  .newsletter-form button{padding:16px 28px;background:var(--terracotta);color:#fff;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;white-space:nowrap;}
+  .newsletter-form button:hover{background:var(--mid-brown);}
+  .newsletter-note{font-family:'Cormorant Garamond',serif;font-size:.82rem;color:rgba(255,255,255,.45);font-style:italic;}
+
+  /* SHOP PAGE EXTRAS */
+  .filter-bar{background:var(--warm-white);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .filter-btn{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:30px;border:1.5px solid var(--border);background:transparent;color:var(--light-text);cursor:pointer;transition:all .2s;}
+  .filter-btn:hover,.filter-btn.active{background:var(--deep-brown);color:var(--soft-gold);border-color:var(--deep-brown);}
+
+  /* PATTERNS PAGE EXTRAS */
+  .skill-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-family:'Cormorant Garamond',serif;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+  .skill-beginner{background:rgba(138,158,126,.3);color:#a8d898;}
+  .skill-intermediate{background:rgba(232,184,75,.25);color:var(--yarn-gold);}
+  .skill-advanced{background:rgba(192,105,74,.3);color:#e09070;}
+  .stitch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;max-width:1200px;margin:0 auto;}
+  .stitch-card{background:var(--warm-white);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;text-decoration:none;transition:all .25s;cursor:pointer;}
+  .stitch-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(61,35,20,.1);border-color:var(--terracotta);}
+  .stitch-icon{font-size:2rem;margin-bottom:10px;display:block;}
+  .stitch-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--deep-brown);margin-bottom:4px;}
+  .stitch-level{font-family:'Cormorant Garamond',serif;font-size:.75rem;color:var(--light-text);letter-spacing:.1em;text-transform:uppercase;}
+
+  /* ABOUT PAGE EXTRAS */
+  .about-page-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1100px;margin:0 auto;align-items:center;}
+  .about-image-block{background:linear-gradient(145deg,#d4927a,#c0694a);border-radius:24px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;font-size:9rem;position:relative;overflow:hidden;}
+  .about-image-block::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='30' cy='30' r='25' stroke='white' stroke-opacity='0.1' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E") 0 0/60px;}
+  .about-page-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--deep-brown);margin-bottom:20px;line-height:1.2;}
+  .about-page-text p{font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--text);line-height:1.9;margin-bottom:18px;}
+  .about-page-text p em{color:var(--terracotta);font-style:normal;font-weight:600;}
+  .stats-row{display:flex;gap:28px;margin:32px 0;flex-wrap:wrap;}
+  .stat-item{border-left:3px solid var(--terracotta);padding-left:14px;}
+  .stat-item .stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--terracotta);line-height:1;}
+  .stat-item .stat-label{font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--light-text);margin-top:4px;}
+  .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+  .value-card{background:var(--warm-white);border:1px solid var(--border);border-radius:16px;padding:32px 28px;text-align:center;transition:all .25s;}
+  .value-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(61,35,20,.1);}
+  .value-icon{font-size:2.5rem;margin-bottom:16px;display:block;}
+  .value-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deep-brown);margin-bottom:10px;}
+  .value-desc{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--light-text);font-style:italic;line-height:1.6;}
+
+  /* CONTACT PAGE EXTRAS */
+  .contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:56px;max-width:1100px;margin:0 auto;align-items:start;}
+  .contact-info-card{background:var(--deep-brown);border-radius:20px;padding:40px 36px;color:#fff;}
+  .contact-info-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:8px;}
+  .contact-info-card p{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:rgba(255,255,255,.65);font-style:italic;line-height:1.7;margin-bottom:32px;}
+  .contact-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;}
+  .contact-icon{width:44px;height:44px;background:rgba(255,255,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+  .contact-label{font-family:'Cormorant Garamond',serif;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--soft-gold);margin-bottom:4px;}
+  .contact-value{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(255,255,255,.85);}
+  .contact-value a{color:rgba(255,255,255,.85);text-decoration:none;}
+  .contact-value a:hover{color:var(--soft-gold);}
+  .social-row{display:flex;gap:10px;margin-top:28px;}
+  .social-btn{width:40px;height:40px;background:rgba(255,255,255,.07);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;transition:background .2s;cursor:pointer;}
+  .social-btn:hover{background:rgba(255,255,255,.15);}
+  .form-card{background:var(--warm-white);border-radius:20px;padding:40px 36px;border:1px solid var(--border);}
+  .form-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--deep-brown);margin-bottom:6px;}
+  .form-card > p,.order-form > p{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--light-text);font-style:italic;margin-bottom:28px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{margin-bottom:20px;}
+  .form-group label{font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mid-brown);display:block;margin-bottom:8px;}
+  .form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text);background:var(--cream);transition:border-color .2s;outline:none;}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--terracotta);}
+  .form-group textarea{resize:vertical;min-height:120px;}
+  .form-submit{width:100%;padding:16px;background:var(--deep-brown);color:var(--soft-gold);border:none;cursor:pointer;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;transition:all .25s;margin-top:8px;}
+  .form-submit:hover{background:var(--terracotta);transform:translateY(-1px);}
+  .success-msg{display:none;text-align:center;padding:20px;background:rgba(90,112,80,.1);border:1px solid rgba(90,112,80,.3);border-radius:12px;color:var(--dark-sage);font-family:'Cormorant Garamond',serif;font-size:1rem;margin-top:16px;}
+
+  /* CUSTOM ORDER EXTRAS */
+  .order-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:56px;max-width:1100px;margin:0 auto;align-items:start;}
+  .order-form{background:var(--warm-white);border-radius:20px;padding:44px 40px;border:1px solid var(--border);}
+  .order-form h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--deep-brown);margin-bottom:6px;}
+  .step-label{font-family:'Cormorant Garamond',serif;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta);display:flex;align-items:center;gap:10px;margin:28px 0 18px;}
+  .step-label::after{content:'';flex:1;height:1px;background:var(--border);}
+  .step-num{width:24px;height:24px;background:var(--terracotta);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
+  .colour-picker{display:flex;gap:10px;flex-wrap:wrap;}
+  .colour-swatch{width:36px;height:36px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative;}
+  .colour-swatch.selected,.colour-swatch:hover{border-color:var(--deep-brown);transform:scale(1.15);}
+  .order-sidebar{display:flex;flex-direction:column;gap:20px;}
+  .sidebar-card{background:var(--warm-white);border-radius:16px;padding:28px 26px;border:1px solid var(--border);}
+  .sidebar-card h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--deep-brown);margin-bottom:14px;}
+  .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .sidebar-card ul li{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+  .sidebar-card ul li::before{content:'✓';color:var(--dark-sage);font-weight:700;flex-shrink:0;}
+  .price-estimate{background:var(--deep-brown);border-radius:16px;padding:28px 26px;color:#fff;}
+  .price-estimate h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--soft-gold);margin-bottom:16px;}
+  .price-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .price-row .label{font-family:'Cormorant Garamond',serif;font-size:.88rem;color:rgba(255,255,255,.65);}
+  .price-row .value{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;}
+  .price-total{border-top:1px solid rgba(255,255,255,.15);padding-top:14px;margin-top:8px;}
+  .price-total .label{color:rgba(255,255,255,.85);font-size:.95rem;}
+  .price-total .value{color:var(--yarn-gold);font-size:1.2rem;}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 40px 32px;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto 48px;}
+  .footer-brand .brand-logo{font-family:'Dancing Script',cursive;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:6px;}
+  .footer-brand .brand-tagline{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dusty-rose);font-style:italic;margin-bottom:16px;}
+  .footer-brand p{font-family:'Cormorant Garamond',serif;font-size:.92rem;line-height:1.75;color:rgba(255,255,255,.5);}
+  .footer-social{display:flex;gap:12px;margin-top:20px;}
+  .footer-social a{width:36px;height:36px;background:rgba(255,255,255,.07);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;transition:background .2s;}
+  .footer-social a:hover{background:rgba(255,255,255,.15);}
+  .footer-col h4{font-family:'Playfair Display',serif;font-size:.9rem;color:#fff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-col ul li a{color:rgba(255,255,255,.5);text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:.92rem;transition:color .2s;cursor:pointer;}
+  .footer-col ul li a:hover{color:var(--soft-gold);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .footer-bottom p{font-family:'Cormorant Garamond',serif;font-size:.82rem;color:rgba(255,255,255,.35);}
+  .footer-bottom p span{color:var(--dusty-rose);}
+  .footer-bottom .payment-icons{display:flex;gap:8px;font-size:1.2rem;}
+
+  #scrollTop{position:fixed;bottom:28px;right:28px;width:44px;height:44px;background:var(--terracotta);color:#fff;border:none;cursor:pointer;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(192,105,74,.4);transition:all .3s;opacity:0;pointer-events:none;z-index:50;}
+  #scrollTop.visible{opacity:1;pointer-events:all;}
+  #scrollTop:hover{background:var(--deep-brown);transform:translateY(-2px);}
+
+  @media(max-width:900px){
+    .header-inner{padding:14px 20px;} nav{display:none;} section{padding:50px 20px;}
+    .about-strip{flex-direction:column;} .about-image-side{min-height:240px;} .about-text-side{padding:40px 28px;}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px;} .top-bar{display:none;}
+    .page-hero{padding:44px 20px;} .breadcrumb{padding:12px 20px;}
+    .contact-grid{grid-template-columns:1fr;gap:32px;} .form-row{grid-template-columns:1fr;}
+    .order-layout{grid-template-columns:1fr;gap:28px;} .order-form{padding:28px 22px;}
+    .about-page-grid{grid-template-columns:1fr;gap:36px;}
+    .hero-content{padding:0 28px;}
+    #hamburger-btn{display:flex!important;}
+    #account-label{display:none;}
+  }
+  .ham-line{display:block;width:22px;height:2px;background:var(--mid-brown);border-radius:2px;transition:all .3s;}
+  #hamburger-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  #hamburger-btn.open .ham-line:nth-child(2){opacity:0;}
+  #hamburger-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media(max-width:600px){
+    .hero{height:80vh;} .hero-title{font-size:2rem;}
+    .footer-grid{grid-template-columns:1fr;gap:24px;}
+    .footer-bottom{flex-direction:column;text-align:center;}
+    .newsletter-form{flex-direction:column;border-radius:12px;}
+    .newsletter-form input{border-radius:12px 12px 0 0;}
+    .newsletter-form button{border-radius:0 0 12px 12px;padding:14px 28px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── SHARED CHROME ─── -->
+<div class="announcement-bar">🧶 <span>New Collection!</span> &nbsp;Handcrafted crochet items — Made with love &nbsp;·&nbsp; Free delivery on orders over KSh 2,000</div>
+<div class="top-bar">
+  <div class="social-links"><a href="#">Instagram</a><a href="#">Facebook</a><a href="#">WhatsApp</a><a href="#">TikTok</a></div>
+  <div class="top-right">
+    <a href="#" onclick="navigate('custom-order')">Custom Orders</a>
+    <a href="#">Track Order</a>
+    <a href="#" onclick="navigate('contact')">Contact Us</a>
+  </div>
+</div>
+<header>
+  <div class="header-inner">
+    <div class="logo-area" onclick="navigate('home')">
+      <svg width="48" height="48" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+        <circle cx="100" cy="130" r="28" fill="none" stroke="#3d2314" stroke-width="5"/>
+        <ellipse cx="100" cy="130" rx="28" ry="10" fill="none" stroke="#3d2314" stroke-width="3"/>
+        <path d="M76 118 Q100 108 124 118" fill="none" stroke="#3d2314" stroke-width="2.5"/>
+        <path d="M74 130 Q100 150 126 130" fill="none" stroke="#3d2314" stroke-width="2.5"/>
+        <path d="M90 102 Q85 75 70 55" fill="none" stroke="#3d2314" stroke-width="3"/>
+        <path d="M110 102 Q115 75 130 55" fill="none" stroke="#3d2314" stroke-width="3"/>
+        <path d="M45 65 Q55 45 75 50 Q80 48 85 52 Q90 48 92 54" fill="none" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/>
+        <path d="M155 65 Q145 45 125 50 Q120 48 115 52 Q110 48 108 54" fill="none" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/>
+        <path d="M100 30 L100 80 Q100 88 95 90" fill="none" stroke="#3d2314" stroke-width="5" stroke-linecap="round"/>
+        <text x="97" y="170" font-size="10" fill="#3d2314" font-family="serif">♥</text>
+      </svg>
+      <div class="logo-text"><span class="brand-name">Duro's Crafts</span><span class="brand-tagline">Handmade is Heartfelt</span></div>
+    </div>
+    <nav>
+      <a id="nav-home" class="active" onclick="navigate('home')">Home</a>
+      <a id="nav-shop" onclick="navigate('shop')">Shop</a>
+      <a id="nav-patterns" onclick="navigate('patterns')">Free Patterns</a>
+      <a id="nav-about" onclick="navigate('about')">About</a>
+      <a id="nav-custom-order" class="nav-cta" onclick="navigate('custom-order')">Custom Order</a>
+      <a id="nav-admin" onclick="navigate('admin')" style="display:none; background:var(--terracotta); color:#fff; border-radius:6px; padding:7px 14px; font-size:0.78rem; letter-spacing:0.14em;">⚙️ Admin</a>
+    </nav>
+    <div class="header-icons">
+      <button title="Search">🔍</button>
+      <button title="Wishlist">🤍</button>
+      <a href="#" style="position:relative" title="Cart">🛒<span class="cart-badge">0</span></a>
+      <button id="account-btn" onclick="openAuthModal('login')" title="My Account" style="display:flex;align-items:center;gap:6px;background:var(--blush);border:1.5px solid var(--border);border-radius:30px;padding:6px 14px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:600;color:var(--mid-brown);transition:all .2s;" onmouseover="this.style.background='var(--dusty-rose)';this.style.color='#fff'" onmouseout="this.style.background='var(--blush)';this.style.color='var(--mid-brown)'"><span id="account-icon">👤</span><span id="account-label">Sign In</span></button>
+      <button id="admin-login-btn" onclick="openAdminLogin()" title="Admin Login" style="display:none;font-size:0.7rem;color:var(--border);opacity:0.3;padding:4px;">●</button>
+      <button id="hamburger-btn" onclick="toggleMobileNav()" title="Menu" style="display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:38px;height:38px;">
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ─── MOBILE NAV DRAWER ─── -->
+<div id="mobile-nav" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;">
+  <!-- Backdrop -->
+  <div onclick="closeMobileNav()" style="position:absolute;inset:0;background:rgba(26,16,8,0.55);backdrop-filter:blur(4px);"></div>
+  <!-- Drawer -->
+  <div style="position:absolute;top:0;right:0;width:82%;max-width:320px;height:100%;background:var(--warm-white);box-shadow:-8px 0 40px rgba(61,35,20,.2);display:flex;flex-direction:column;overflow-y:auto;">
+    <!-- Drawer Header -->
+    <div style="background:var(--deep-brown);padding:24px 22px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-family:'Dancing Script',cursive;font-size:1.4rem;color:var(--soft-gold);font-weight:700;">Duro's Crafts</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.16em;text-transform:uppercase;margin-top:2px;">Handmade is Heartfelt</div>
+      </div>
+      <button onclick="closeMobileNav()" style="background:rgba(255,255,255,.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <!-- Nav Links -->
+    <nav style="display:flex!important;flex-direction:column;padding:12px 0;">
+      <a onclick="navigate('home');closeMobileNav();" style="display:flex;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;">🏠 Home</a>
+      <a onclick="navigate('shop');closeMobileNav();" style="display:flex;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;">🛍️ Shop</a>
+      <a onclick="navigate('patterns');closeMobileNav();" style="display:flex;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;">📖 Free Patterns</a>
+      <a onclick="navigate('about');closeMobileNav();" style="display:flex;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;">🧶 About</a>
+      <a onclick="navigate('contact');closeMobileNav();" style="display:flex;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;">💬 Contact</a>
+      <a onclick="navigate('custom-order');closeMobileNav();" style="display:flex;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terracotta);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;">✂️ Custom Order</a>
+      <a id="mobile-nav-admin" onclick="navigate('admin');closeMobileNav();renderAdminDashboard();" style="display:none;align-items:center;gap:14px;padding:15px 22px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--deep-brown);text-decoration:none;border-bottom:1px solid var(--border);cursor:pointer;background:#fff8f0;">🔐 Admin Panel</a>
+    </nav>
+    <!-- Mobile Account Section -->
+    <div style="padding:18px 22px;border-top:2px solid var(--border);margin-top:auto;">
+      <div id="mobile-account-logged-out">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:.92rem;color:var(--light-text);font-style:italic;margin-bottom:14px;">Sign in for a personalised experience</p>
+        <button onclick="openAuthModal('login');closeMobileNav();" style="width:100%;background:var(--deep-brown);color:var(--soft-gold);border:none;padding:13px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-bottom:10px;">Sign In</button>
+        <button onclick="openAuthModal('signup');closeMobileNav();" style="width:100%;background:transparent;color:var(--deep-brown);border:2px solid var(--border);padding:12px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;">Create Account</button>
+      </div>
+      <div id="mobile-account-logged-in" style="display:none;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div id="mobile-avatar" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#c0694a,#e8b84b);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#fff;flex-shrink:0;font-family:'Playfair Display',serif;"></div>
+          <div>
+            <div id="mobile-user-name" style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--deep-brown);"></div>
+            <div id="mobile-user-email" style="font-family:'Cormorant Garamond',serif;font-size:.8rem;color:var(--light-text);"></div>
+          </div>
+        </div>
+        <button onclick="openAccountPage('orders');closeMobileNav();" style="width:100%;background:var(--blush);color:var(--deep-brown);border:none;padding:12px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:10px;">My Account</button>
+        <button onclick="doUserLogout();closeMobileNav();" style="width:100%;background:transparent;color:#c0694a;border:2px solid #f2d0c8;padding:11px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;">Sign Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PAGE: HOME ─── -->
+<div id="page-home" class="page active">
+<!-- QUICK NAV HUB -->
+<section style="background:var(--deep-brown); padding:32px 40px;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:0.75rem; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:var(--soft-gold); margin-bottom:20px; opacity:0.8;">Quick Navigate</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px;">
+      <a href="#" onclick="navigate('shop')" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">🛍️</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Shop</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">100+ items</span>
+      </a>
+      <a href="#" onclick="navigate('patterns')" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">📖</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Free Patterns</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">120+ patterns</span>
+      </a>
+      <a href="tutorials.html" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">🎬</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Tutorials</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Video guides</span>
+      </a>
+      <a href="#" onclick="navigate('custom-order')" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">✂️</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Custom Order</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Made for you</span>
+      </a>
+      <a href="#" onclick="navigate('about')" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">🧶</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">About Duro</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Our story</span>
+      </a>
+      <a href="#" onclick="navigate('contact')" style="display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:18px 12px; text-decoration:none; transition:all 0.25s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.transform='translateY(0)'">
+        <span style="font-size:1.8rem;">💬</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff;">Contact</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; color:rgba(255,255,255,0.5); font-style:italic;">Get in touch</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories-section" id="shop">
+  <div class="section-header">
+    <div class="section-eyebrow">Explore</div>
+    <h2 class="section-title">Shop by Category</h2>
+    <p class="section-sub">From cosy blankets to wearable art — find your perfect handmade piece.</p>
+  </div>
+  <div class="categories-grid">
+    <a href="#" onclick="navigate('shop')" class="cat-card cat-card-1">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🧣</div>
+      <div class="cat-info">
+        <div class="cat-name">Scarves & Wraps</div>
+        <div class="cat-count">24 items</div>
+      </div>
+    </a>
+    <a href="#" onclick="navigate('shop')" class="cat-card cat-card-2">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🧸</div>
+      <div class="cat-info">
+        <div class="cat-name">Baby Items</div>
+        <div class="cat-count">31 items</div>
+      </div>
+    </a>
+    <a href="#" onclick="navigate('shop')" class="cat-card cat-card-3">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🏠</div>
+      <div class="cat-info">
+        <div class="cat-name">Home Décor</div>
+        <div class="cat-count">18 items</div>
+      </div>
+    </a>
+    <a href="#" onclick="navigate('shop')" class="cat-card cat-card-4">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">👒</div>
+      <div class="cat-info">
+        <div class="cat-name">Hats & Beanies</div>
+        <div class="cat-count">15 items</div>
+      </div>
+    </a>
+    <a href="#" onclick="navigate('shop')" class="cat-card cat-card-5">
+      <div class="cat-bg"></div>
+      <div class="cat-icon">🛍️</div>
+      <div class="cat-info">
+        <div class="cat-name">Bags & Totes</div>
+        <div class="cat-count">12 items</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="products-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Bestsellers</div>
+    <h2 class="section-title">Handpicked for You</h2>
+    <p class="section-sub">Our most-loved pieces — each one made to order with premium yarn and lots of care.</p>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img product-img-1">
+        <span>🧶</span>
+        <span class="product-badge">Bestseller</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Blankets</div>
+        <div class="product-name">Sunset Boho Blanket</div>
+        <div class="product-desc">Chunky cotton, warm terracotta tones — perfect for the living room or a gift.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 2,450</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-2">
+        <span>🧸</span>
+        <span class="product-badge">New</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Baby Items</div>
+        <div class="product-name">Soft Amigurumi Set</div>
+        <div class="product-desc">Adorable handmade baby toys — safe, soft, and full of personality.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 1,080</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-3">
+        <span>🛍️</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Bags & Totes</div>
+        <div class="product-name">Market Tote Bag</div>
+        <div class="product-desc">Stylish, sturdy, and eco-friendly. Your everyday carry, handcrafted.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 860</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-4">
+        <span>👒</span>
+        <span class="product-badge">Sale</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Hats & Beanies</div>
+        <div class="product-name">Cosy Winter Beanie</div>
+        <div class="product-desc">Keep warm in style. Custom colours available on request.</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old">KSh 600</span>KSh 425</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-5">
+        <span>🏠</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Home Décor</div>
+        <div class="product-name">Macramé Wall Hanging</div>
+        <div class="product-desc">Transform any wall into a work of art with this boho woven piece.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 1,590</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img product-img-6">
+        <span>🧣</span>
+        <span class="product-badge">Custom</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Scarves & Wraps</div>
+        <div class="product-name">Infinity Scarf</div>
+        <div class="product-desc">Lightweight, cosy, and beautifully textured — choose your colour.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 770</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:44px;">
+    <a href="#" onclick="navigate('shop')" class="btn-dark">View All Products →</a>
+  </div>
+</section>
+
+<!-- FREE PATTERNS -->
+<section class="patterns-section" id="patterns">
+  <div class="section-header">
+    <div class="section-eyebrow">Free Resources</div>
+    <h2 class="section-title">Free Crochet Patterns</h2>
+    <p class="section-sub">Browse hundreds of free patterns, stitch guides & tutorials for all skill levels.</p>
+  </div>
+  <div class="patterns-grid">
+    <a href="#" onclick="navigate('patterns')" class="pattern-card">
+      <span class="pattern-icon">📖</span>
+      <div class="pattern-cat">Beginners</div>
+      <div class="pattern-title">How to Crochet: Complete Guide</div>
+      <div class="pattern-desc">Start from zero — your step-by-step beginner guide to crochet, with photos for every stitch.</div>
+      <div class="pattern-link">Read Guide</div>
+    </a>
+    <a href="#" onclick="navigate('patterns')" class="pattern-card">
+      <span class="pattern-icon">🧤</span>
+      <div class="pattern-cat">Garments</div>
+      <div class="pattern-title">Free Cardigan Pattern</div>
+      <div class="pattern-desc">A stunning beginner-friendly crochet cardigan pattern, available in all sizes.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" onclick="navigate('patterns')" class="pattern-card">
+      <span class="pattern-icon">🏡</span>
+      <div class="pattern-cat">Home Décor</div>
+      <div class="pattern-title">Sunburst Table Runner</div>
+      <div class="pattern-desc">A cheerful table runner perfect for any home — free pattern with step-by-step photos.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" onclick="navigate('patterns')" class="pattern-card">
+      <span class="pattern-icon">📚</span>
+      <div class="pattern-cat">Stitch Library</div>
+      <div class="pattern-title">50+ Crochet Stitch Guides</div>
+      <div class="pattern-desc">Expand your skills with our growing library of beautifully illustrated stitch tutorials.</div>
+      <div class="pattern-link">Browse Stitches</div>
+    </a>
+  </div>
+  <div style="text-align:center; margin-top:44px;">
+    <a href="#" onclick="navigate('patterns')" style="display:inline-flex; align-items:center; gap:8px; color:var(--soft-gold); font-family:'Cormorant Garamond',serif; font-size:0.95rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; border: 2px solid rgba(255,255,255,0.3); padding:14px 32px; border-radius:50px; transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.7)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)'">See All Free Patterns →</a>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip" id="about">
+  <div class="about-image-side">
+    <span style="position:relative;z-index:2;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.2))">🧶</span>
+  </div>
+  <div class="about-text-side">
+    <div class="section-eyebrow">Our Story</div>
+    <h2 class="about-title">Every Stitch Tells a Story</h2>
+    <p class="about-body">
+      Hi there — I'm Duro, the hands and heart behind Duro's Crafts. What started as a quiet hobby during long evenings has grown into a little world of handmade love. Every piece I create carries intention, care, and creativity — because I believe handmade is always heartfelt.
+    </p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Patterns Created</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5 ★</div>
+        <div class="stat-label">Avg. Rating</div>
+      </div>
+    </div>
+    <a href="#" onclick="navigate('about')" class="btn-dark">Learn More About Me →</a>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Reviews</div>
+    <h2 class="section-title">What Customers Are Saying</h2>
+    <p class="section-sub">Handmade with love, received with joy — hear from people who've worn, gifted & treasured Duro's Crafts.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">
+        The blanket I ordered exceeded every expectation. The stitching is immaculate and the colours are even more beautiful in person. I've already ordered two more as gifts!
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar av1">👩🏽</div>
+        <div>
+          <div class="author-name">Adaeze Okonkwo</div>
+          <div class="author-location">Lagos, Nigeria</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">
+        I've been crocheting for years and the free patterns on this site are the best I've found — clear, beautifully photographed, and so creative. A true gem!
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar av2">👩🏿</div>
+        <div>
+          <div class="author-name">Fatima Al-Hassan</div>
+          <div class="author-location">Abuja, Nigeria</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">
+        Ordered a custom baby set for my sister's shower and it was the star of the day. So carefully made, packaged beautifully, and delivered on time. Highly recommend!
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar av3">👩🏾</div>
+        <div>
+          <div class="author-name">Chidinma Eze</div>
+          <div class="author-location">Enugu, Nigeria</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="section-eyebrow">Stay Connected</div>
+  <h2 class="section-title">Join the Crafts Circle</h2>
+  <p class="section-sub">Get free patterns, early access to new items, and crochet tips delivered straight to your inbox.</p>
+  <form class="newsletter-form" onsubmit="return false;">
+    <input type="email" placeholder="Your email address…">
+    <button type="submit">Subscribe</button>
+  </form>
+  <p class="newsletter-note">🤝 No spam, ever. Unsubscribe any time.</p>
+</section>
+
+<!-- FOOTER -->
+
+<section class="newsletter-section">
+  <div class="section-eyebrow">Stay Connected</div>
+  <h2 class="section-title">Join the Crafts Circle</h2>
+  <p class="section-sub">Get free patterns, early access to new items, and crochet tips delivered straight to your inbox.</p>
+  <form class="newsletter-form" onsubmit="return false;"><input type="email" placeholder="Your email address…"><button type="submit">Subscribe</button></form>
+  <p class="newsletter-note">🤝 No spam, ever. Unsubscribe any time.</p>
+</section>
+</div>
+
+<!-- ─── PAGE: SHOP ─── -->
+<div id="page-shop" class="page">
+<div class="breadcrumb"><a href="#" onclick="navigate('index')">Home</a> › Shop</div>
+
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Handcrafted with Love</div>
+  <h1 class="page-hero-title">Our Shop</h1>
+  <p class="page-hero-sub">Every item made to order — choose your colours, your size, your story.</p>
+</div>
+
+<div style="background:var(--warm-white); border-bottom:1px solid var(--border); padding:16px 40px;">
+  <div class="filter-bar" style="padding:0; border:none;">
+    <span style="font-family:'Cormorant Garamond',serif; font-size:0.8rem; color:var(--light-text); letter-spacing:0.1em; text-transform:uppercase; margin-right:6px;">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="blankets">Blankets</button>
+    <button class="filter-btn" data-filter="babyitems">Baby Items</button>
+    <button class="filter-btn" data-filter="bags&totes">Bags & Totes</button>
+    <button class="filter-btn" data-filter="hats&beanies">Hats</button>
+    <button class="filter-btn" data-filter="homedécor">Home Décor</button>
+    <button class="filter-btn" data-filter="scarves&wraps">Scarves</button>
+  </div>
+</div>
+
+<section style="background:var(--cream);">
+  <div class="products-grid">
+    <div class="product-card" data-cat="blankets">
+      <div class="product-img product-img-1">
+        <span>🧶</span>
+        <span class="product-badge">Bestseller</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Blankets</div>
+        <div class="product-name">Sunset Boho Blanket</div>
+        <div class="product-desc">Chunky cotton, warm terracotta tones — perfect for the living room or a gift.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 2,450</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="babyitems">
+      <div class="product-img product-img-2">
+        <span>🧸</span>
+        <span class="product-badge">New</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Baby Items</div>
+        <div class="product-name">Soft Amigurumi Set</div>
+        <div class="product-desc">Adorable handmade baby toys — safe, soft, and full of personality.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 1,080</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="bagstotes">
+      <div class="product-img product-img-3">
+        <span>🛍️</span>
+        
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Bags & Totes</div>
+        <div class="product-name">Market Tote Bag</div>
+        <div class="product-desc">Stylish, sturdy, and eco-friendly. Your everyday carry, handcrafted.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 860</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="hatsbeanies">
+      <div class="product-img product-img-4">
+        <span>👒</span>
+        <span class="product-badge">Sale</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Hats & Beanies</div>
+        <div class="product-name">Cosy Winter Beanie</div>
+        <div class="product-desc">Keep warm in style. Custom colours available on request.</div>
+        <div class="product-footer">
+          <div class="product-price"><span class="old">KSh 600</span>KSh 425</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="homedécor">
+      <div class="product-img product-img-5">
+        <span>🏠</span>
+        
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Home Décor</div>
+        <div class="product-name">Macramé Wall Hanging</div>
+        <div class="product-desc">Transform any wall into a work of art with this boho woven piece.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 1,590</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="scarveswraps">
+      <div class="product-img product-img-6">
+        <span>🧣</span>
+        <span class="product-badge">Custom</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Scarves & Wraps</div>
+        <div class="product-name">Infinity Scarf</div>
+        <div class="product-desc">Lightweight, cosy, and beautifully textured — choose your colour.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 770</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="blankets">
+      <div class="product-img product-img-1">
+        <span>🧶</span>
+        
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Blankets</div>
+        <div class="product-name">Granny Square Afghan</div>
+        <div class="product-desc">Classic granny squares in a modern colour palette. Made to order.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 2,100</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" data-cat="babyitems">
+      <div class="product-img product-img-2">
+        <span>🧸</span>
+        <span class="product-badge">Bestseller</span>
+        <button class="product-wishlist">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Baby Items</div>
+        <div class="product-name">Baby Booties Set</div>
+        <div class="product-desc">Tiny hands, tiny feet — handmade booties in your chosen colours.</div>
+        <div class="product-footer">
+          <div class="product-price">KSh 650</div>
+          <button class="btn-add">Add to Cart</button>
+        </div>
+      </div>
+    </div></div>
+</section>
+
+<section style="background:var(--blush); text-align:center; padding:60px 40px;">
+  <div class="section-eyebrow">Can't Find It?</div>
+  <h2 class="section-title">Order Something Custom</h2>
+  <p class="section-sub">Any colour, any size, any occasion. Tell me what you have in mind.</p>
+  <a href="#" onclick="navigate('custom-order')" class="btn-dark">Start Custom Order →</a>
+</section>
+</div>
+
+<!-- ─── PAGE: PATTERNS ─── -->
+<div id="page-patterns" class="page">
+<div class="breadcrumb"><a href="#" onclick="navigate('index')">Home</a> › Free Patterns</div>
+
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Free Resources</div>
+  <h1 class="page-hero-title">Free Crochet Patterns</h1>
+  <p class="page-hero-sub">120+ free patterns, stitch guides & tutorials for all skill levels — always free, always beautiful.</p>
+</div>
+
+<section style="background:var(--deep-brown); padding:70px 40px;" id="patterns">
+  <div class="section-header">
+    <div class="section-eyebrow" style="color:var(--soft-gold);">Free Downloads</div>
+    <h2 class="section-title" style="color:#fff;">Popular Patterns</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.65);">Our most-loved free patterns — download, print, and create something beautiful.</p>
+  </div>
+  <div class="patterns-grid">
+    <a href="#" class="pattern-card" id="beginners">
+      <span class="pattern-icon">📖</span>
+      <span class="skill-badge skill-beginner">Beginner</span>
+      <div class="pattern-cat">Getting Started</div>
+      <div class="pattern-title">How to Crochet: Complete Guide</div>
+      <div class="pattern-desc">Start from zero — your step-by-step beginner guide to crochet, with photos for every stitch.</div>
+      <div class="pattern-link">Read Guide</div>
+    </a>
+    <a href="#" class="pattern-card" id="garments">
+      <span class="pattern-icon">🧤</span>
+      <span class="skill-badge skill-intermediate">Intermediate</span>
+      <div class="pattern-cat">Garments</div>
+      <div class="pattern-title">Free Cardigan Pattern</div>
+      <div class="pattern-desc">A stunning beginner-friendly crochet cardigan, available in all sizes with photo guides.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" class="pattern-card" id="home-decor">
+      <span class="pattern-icon">🏡</span>
+      <span class="skill-badge skill-beginner">Beginner</span>
+      <div class="pattern-cat">Home Décor</div>
+      <div class="pattern-title">Sunburst Table Runner</div>
+      <div class="pattern-desc">A cheerful table runner perfect for any home — free pattern with step-by-step photos.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" class="pattern-card">
+      <span class="pattern-icon">🧸</span>
+      <span class="skill-badge skill-beginner">Beginner</span>
+      <div class="pattern-cat">Amigurumi</div>
+      <div class="pattern-title">Basic Amigurumi Bear</div>
+      <div class="pattern-desc">Your first amigurumi — an adorable bear that teaches all the core techniques you'll need.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" class="pattern-card">
+      <span class="pattern-icon">🧣</span>
+      <span class="skill-badge skill-beginner">Beginner</span>
+      <div class="pattern-cat">Accessories</div>
+      <div class="pattern-title">Simple Infinity Scarf</div>
+      <div class="pattern-desc">A quick, beautiful scarf pattern — perfect weekend project for beginners and beyond.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" class="pattern-card">
+      <span class="pattern-icon">🪴</span>
+      <span class="skill-badge skill-intermediate">Intermediate</span>
+      <div class="pattern-cat">Home Décor</div>
+      <div class="pattern-title">Boho Plant Hanger</div>
+      <div class="pattern-desc">A macramé-style plant hanger that looks stunning in any corner of your home.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" class="pattern-card">
+      <span class="pattern-icon">🧶</span>
+      <span class="skill-badge skill-advanced">Advanced</span>
+      <div class="pattern-cat">Blankets</div>
+      <div class="pattern-title">Granny Square Afghan</div>
+      <div class="pattern-desc">A gorgeous full-size blanket built from classic granny squares in a modern colour arrangement.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+    <a href="#" class="pattern-card">
+      <span class="pattern-icon">👒</span>
+      <span class="skill-badge skill-beginner">Beginner</span>
+      <div class="pattern-cat">Hats</div>
+      <div class="pattern-title">Classic Beanie Hat</div>
+      <div class="pattern-desc">A versatile, well-fitting beanie pattern that works for all head sizes and yarn weights.</div>
+      <div class="pattern-link">Get Pattern</div>
+    </a>
+  </div>
+</section>
+
+<section style="background:var(--cream);" id="stitches">
+  <div class="section-header">
+    <div class="section-eyebrow">Stitch Library</div>
+    <h2 class="section-title">Learn Every Stitch</h2>
+    <p class="section-sub">Illustrated guides for 50+ crochet stitches — from the very basics to advanced texture work.</p>
+  </div>
+  <div class="stitch-grid">
+    <a href="#" class="stitch-card"><span class="stitch-icon">⬜</span><div class="stitch-name">Chain Stitch</div><div class="stitch-level">Beginner</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🔲</span><div class="stitch-name">Single Crochet</div><div class="stitch-level">Beginner</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🔷</span><div class="stitch-name">Double Crochet</div><div class="stitch-level">Beginner</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🔸</span><div class="stitch-name">Half Double</div><div class="stitch-level">Beginner</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🌀</span><div class="stitch-name">Magic Ring</div><div class="stitch-level">Beginner</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🌸</span><div class="stitch-name">Shell Stitch</div><div class="stitch-level">Intermediate</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🌿</span><div class="stitch-name">Moss Stitch</div><div class="stitch-level">Intermediate</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">✦</span><div class="stitch-name">Star Stitch</div><div class="stitch-level">Intermediate</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🍀</span><div class="stitch-name">Bobble Stitch</div><div class="stitch-level">Intermediate</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🎇</span><div class="stitch-name">Popcorn Stitch</div><div class="stitch-level">Advanced</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🌊</span><div class="stitch-name">Crocodile Stitch</div><div class="stitch-level">Advanced</div></a>
+    <a href="#" class="stitch-card"><span class="stitch-icon">🔮</span><div class="stitch-name">Tapestry Crochet</div><div class="stitch-level">Advanced</div></a>
+  </div>
+  <div style="text-align:center; margin-top:40px;">
+    <a href="#" class="btn-dark">View Full Stitch Library →</a>
+  </div>
+</section>
+</div>
+
+<!-- ─── PAGE: ABOUT ─── -->
+<div id="page-about" class="page">
+<div class="breadcrumb"><a href="#" onclick="navigate('index')">Home</a> › About</div>
+
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Our Story</div>
+  <h1 class="page-hero-title">About Duro's Crafts</h1>
+  <p class="page-hero-sub">Every stitch tells a story — here's mine.</p>
+</div>
+
+<section style="background:var(--cream);">
+  <div class="about-grid">
+    <div class="about-image-block">
+      <span style="position:relative;z-index:2;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.2))">🧶</span>
+    </div>
+    <div class="about-text">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:0.75rem; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:var(--terracotta); margin-bottom:12px;">Hello, I'm Duro</div>
+      <h2>The Hands & Heart Behind Every Piece</h2>
+      <p>What started as a quiet hobby during long evenings has grown into a little world of handmade love. I remember my first crochet hook — a simple plastic one — and the very first chain stitch I ever made. <em>It was crooked, uneven, and absolutely perfect to me.</em></p>
+      <p>Every piece I create carries intention, care, and creativity. I believe that handmade items carry an energy that mass-produced things simply cannot — you can feel the love in every loop, every stitch, every knot.</p>
+      <p>Whether it's a blanket for a new baby, a custom gift for someone special, or a pattern for you to make yourself — I want every creation from this little shop to bring warmth, joy, and a touch of handmade magic into your life.</p>
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Happy Customers</div></div>
+        <div class="stat-item"><div class="stat-num">120+</div><div class="stat-label">Patterns Created</div></div>
+        <div class="stat-item"><div class="stat-num">5 ★</div><div class="stat-label">Avg. Rating</div></div>
+        <div class="stat-item"><div class="stat-num">4 yrs</div><div class="stat-label">Crafting</div></div>
+      </div>
+      <a href="#" onclick="navigate('custom-order')" class="btn-dark">Work With Me →</a>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--warm-white);">
+  <div class="section-header">
+    <div class="section-eyebrow">What I Stand For</div>
+    <h2 class="section-title">The Duro's Crafts Values</h2>
+    <p class="section-sub">Everything I make is guided by a few simple beliefs about what handmade should feel like.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <span class="value-icon">💛</span>
+      <div class="value-title">Made with Intention</div>
+      <div class="value-desc">Every stitch is placed thoughtfully. No rushing, no shortcuts — just careful, loving craftsmanship from start to finish.</div>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">🌿</span>
+      <div class="value-title">Quality Materials</div>
+      <div class="value-desc">I use premium cotton and acrylic yarns chosen for softness, durability, and beautiful colour depth that lasts.</div>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">✨</span>
+      <div class="value-title">Truly Personalised</div>
+      <div class="value-desc">Every order is made to order. You choose the colours, the size, the message — I bring your vision to life.</div>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">🤝</span>
+      <div class="value-title">Community First</div>
+      <div class="value-desc">I share free patterns and tutorials because I believe crochet should be accessible to everyone, everywhere.</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--blush); text-align:center; padding:80px 40px;">
+  <div class="section-eyebrow">Let's Create Together</div>
+  <h2 class="section-title">Ready to Order Something Special?</h2>
+  <p class="section-sub">Tell me about your dream piece and I'll bring it to life with love.</p>
+  <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+    <a href="#" onclick="navigate('custom-order')" class="btn-dark">Start Custom Order →</a>
+    <a href="#" onclick="navigate('contact')" class="btn-terracotta">Get in Touch</a>
+  </div>
+</section>
+</div>
+
+<!-- ─── PAGE: CONTACT ─── -->
+<div id="page-contact" class="page">
+<div class="breadcrumb"><a href="#" onclick="navigate('index')">Home</a> › Contact</div>
+
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Say Hello</div>
+  <h1 class="page-hero-title">Get in Touch</h1>
+  <p class="page-hero-sub">Have a question, a custom idea, or just want to say hi? I'd love to hear from you.</p>
+</div>
+
+<section style="background:var(--cream);">
+  <div class="contact-grid">
+    <div class="contact-info-card">
+      <h3>Let's Connect</h3>
+      <p>I typically reply within 24 hours. For urgent orders, WhatsApp is the fastest way to reach me.</p>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div><div class="contact-label">WhatsApp</div><div class="contact-value"><a href="https://wa.me/234XXXXXXXXXX">+234 XXX XXXX XXX</a></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div><div class="contact-label">Email</div><div class="contact-value"><a href="mailto:hello@duroscrafts.com">hello@duroscrafts.com</a></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📸</div>
+        <div><div class="contact-label">Instagram</div><div class="contact-value"><a href="#">@duroscrafts</a></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⏰</div>
+        <div><div class="contact-label">Response Time</div><div class="contact-value">Within 24 hours</div></div>
+      </div>
+      <div class="social-row">
+        <a href="#" class="social-btn" title="Instagram">📸</a>
+        <a href="#" class="social-btn" title="Facebook">👍</a>
+        <a href="#" class="social-btn" title="WhatsApp">💬</a>
+        <a href="#" class="social-btn" title="TikTok">🎵</a>
+      </div>
+    </div>
+    <div class="form-card">
+      <h3>Send a Message</h3>
+      <p>Fill in the form below and I'll get back to you as soon as possible.</p>
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Amara Okafor"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
+      </div>
+      <div class="form-group"><label>Subject</label>
+        <select>
+          <option value="">Select a topic…</option>
+          <option>General Enquiry</option>
+          <option>Custom Order</option>
+          <option>Order Status</option>
+          <option>Pattern Question</option>
+          <option>Collaboration</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell me what's on your mind…"></textarea></div>
+      <button class="form-submit" onclick="document.querySelector('.success-msg').style.display='block'; this.textContent='Sent! ✓'; this.style.background='var(--dark-sage)';">Send Message →</button>
+      <div class="success-msg">✅ Thank you! Your message has been sent. I'll reply within 24 hours.</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--warm-white); text-align:center; padding:60px 40px;">
+  <div class="section-eyebrow">Quick Actions</div>
+  <h2 class="section-title">What Would You Like to Do?</h2>
+  <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:32px;">
+    <a href="#" onclick="navigate('custom-order')" class="btn-dark">✂️ Place a Custom Order</a>
+    <a href="#" onclick="navigate('shop')" class="btn-terracotta">🛍️ Browse the Shop</a>
+    <a href="#" onclick="navigate('patterns')" class="btn-dark" style="background:var(--sage);">📖 Get Free Patterns</a>
+  </div>
+</section>
+</div>
+
+<!-- ─── PAGE: CUSTOM ORDER ─── -->
+<div id="page-custom-order" class="page">
+<div class="breadcrumb"><a href="#" onclick="navigate('index')">Home</a> › Custom Order</div>
+
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Made Just For You</div>
+  <h1 class="page-hero-title">Place a Custom Order</h1>
+  <p class="page-hero-sub">Tell me exactly what you want — colours, size, occasion — and I'll handcraft it with love.</p>
+</div>
+
+<section style="background:var(--cream);">
+  <div class="order-layout">
+    <div class="order-form">
+      <h2>Order Details</h2>
+      <p>Fill in the form below and I'll get back to you within 24 hours with a quote and timeline.</p>
+
+      <div class="step-label"><span class="step-num">1</span>Your Info</div>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="e.g. Amara Okafor"></div>
+        <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+254 7XX XXX XXX"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
+
+      <div class="step-label"><span class="step-num">2</span>What Do You Want Made?</div>
+      <div class="form-group"><label>Item Type</label>
+        <select id="item-select" onchange="updatePrice()">
+          <option value="">Choose an item…</option>
+          <option value="2000">Blanket / Afghan</option>
+          <option value="800">Baby Set (booties + hat)</option>
+          <option value="600">Amigurumi Toy</option>
+          <option value="500">Hat / Beanie</option>
+          <option value="700">Scarf / Wrap</option>
+          <option value="900">Tote / Market Bag</option>
+          <option value="1200">Wall Hanging / Macramé</option>
+          <option value="0">Other (describe below)</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Size</label>
+          <select><option>Standard</option><option>Small</option><option>Large</option><option>Custom (describe below)</option></select>
+        </div>
+        <div class="form-group"><label>Quantity</label>
+          <select id="qty-select" onchange="updatePrice()">
+            <option value="1">1 item</option>
+            <option value="2">2 items</option>
+            <option value="3">3 items</option>
+            <option value="5">5+ items (bulk)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="step-label"><span class="step-num">3</span>Colour Preferences</div>
+      <div class="form-group">
+        <label>Choose Colours (tap to select)</label>
+        <div class="colour-picker">
+          <div class="colour-swatch selected" style="background:#c0694a;" title="Terracotta"></div>
+          <div class="colour-swatch" style="background:#e8b84b;" title="Gold"></div>
+          <div class="colour-swatch" style="background:#8a9e7e;" title="Sage Green"></div>
+          <div class="colour-swatch" style="background:#d4927a;" title="Dusty Rose"></div>
+          <div class="colour-swatch" style="background:#3d2314;" title="Deep Brown"></div>
+          <div class="colour-swatch" style="background:#a07898;" title="Lavender"></div>
+          <div class="colour-swatch" style="background:#70a8a8;" title="Teal"></div>
+          <div class="colour-swatch" style="background:#ffffff; border:2px solid #ddd;" title="White"></div>
+          <div class="colour-swatch" style="background:#1a1a1a;" title="Black"></div>
+          <div class="colour-swatch" style="background:#f0f0f0; border:2px dashed #ccc;" title="Custom"></div>
+        </div>
+      </div>
+      <div class="form-group"><label>Describe Your Colours (optional)</label><input type="text" placeholder="e.g. warm sunset tones, baby blue and white…"></div>
+
+      <div class="step-label"><span class="step-num">4</span>Extra Details</div>
+      <div class="form-group"><label>Occasion / Purpose</label>
+        <select><option>Gift</option><option>Personal Use</option><option>Baby Shower</option><option>Wedding</option><option>Home Décor</option><option>Other</option></select>
+      </div>
+      <div class="form-group"><label>Any Special Requests</label>
+        <textarea placeholder="Personalisation, initials, special colours, specific pattern style, deadline…"></textarea>
+      </div>
+      <div class="form-group"><label>When Do You Need It?</label>
+        <input type="date">
+      </div>
+
+      <button class="form-submit" onclick="submitOrder(this)">Submit My Order Request →</button>
+      <div class="success-msg" id="success-msg">🎉 Thank you! Your order request has been received. I'll contact you on WhatsApp within 24 hours with your quote.</div>
+    </div>
+
+    <div class="order-sidebar">
+      <div class="price-estimate">
+        <h4>💰 Price Estimate</h4>
+        <div class="price-row"><span class="label">Item</span><span class="value" id="est-item">—</span></div>
+        <div class="price-row"><span class="label">Quantity</span><span class="value" id="est-qty">1×</span></div>
+        <div class="price-row price-total"><span class="label" style="font-weight:700;">Estimated Total</span><span class="value" id="est-total">Select an item</span></div>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:0.8rem; color:rgba(255,255,255,0.5); font-style:italic; margin-top:14px; line-height:1.6;">Actual price confirmed after review. Complex custom designs may vary.</p>
+      </div>
+      <div class="sidebar-card">
+        <h4>What You Get</h4>
+        <ul>
+          <li>Handcrafted specifically for you</li>
+          <li>Premium quality yarn & materials</li>
+          <li>Photo updates during making</li>
+          <li>Beautifully packaged for gifting</li>
+          <li>Ready in 5–14 days depending on item</li>
+          <li>WhatsApp support throughout</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h4>How It Works</h4>
+        <ul>
+          <li>Fill in this form & submit</li>
+          <li>I'll send you a quote in 24hrs</li>
+          <li>Pay 50% deposit to start</li>
+          <li>I'll keep you updated with photos</li>
+          <li>Pay balance on completion</li>
+          <li>Item delivered to your door</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ─── SHARED FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand-logo">Duro's Crafts ♥</div>
+      <div class="brand-tagline">Handmade is Heartfelt.</div>
+      <p>Creating beautiful, handcrafted crochet items with love and care. Every piece is made to order — because you deserve something truly special.</p>
+      <div class="footer-social">
+        <a href="#">📸</a><a href="#">👍</a><a href="#">💬</a><a href="#">🎵</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul>
+      <li><a onclick="navigate('shop')">All Products</a></li>
+      <li><a onclick="navigate('shop')">Blankets</a></li>
+      <li><a onclick="navigate('shop')">Baby Items</a></li>
+      <li><a onclick="navigate('shop')">Home Décor</a></li>
+      <li><a onclick="navigate('shop')">Accessories</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Learn</h4><ul>
+      <li><a onclick="navigate('patterns')">Free Patterns</a></li>
+      <li><a href="#">Video Tutorials</a></li>
+      <li><a onclick="navigate('patterns')">Stitch Library</a></li>
+      <li><a onclick="navigate('patterns')">Beginner's Guide</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Help</h4><ul>
+      <li><a onclick="navigate('about')">About Duro</a></li>
+      <li><a onclick="navigate('contact')">Contact Us</a></li>
+      <li><a onclick="navigate('custom-order')">Custom Orders</a></li>
+      <li><a href="#">Shipping Policy</a></li>
+      <li><a href="#">Returns &amp; Refunds</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Duro's Crafts. Made with <span>♥</span> — Handmade is Heartfelt.</p>
+    <div class="payment-icons">💳 🏦 📱</div>
+  </div>
+</footer>
+<button id="scrollTop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── NAVIGATION ──
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Update browser URL without reload
+  history.pushState({page}, '', '#' + page);
+}
+
+// Handle browser back/forward
+window.addEventListener('popstate', e => {
+  if (e.state && e.state.page) navigate(e.state.page);
+  else navigate('home');
+});
+
+// Load correct page from URL hash on first load
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = location.hash.replace('#','');
+  if (hash) navigate(hash);
+});
+
+// ── HERO SLIDER ──
+let current = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+let autoTimer;
+function goToSlide(n) {
+  slides[current].classList.remove('active'); dots[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active'); dots[current].classList.add('active');
+  clearInterval(autoTimer); autoTimer = setInterval(() => goToSlide(current+1), 5000);
+}
+function changeSlide(dir) { goToSlide(current + dir); }
+autoTimer = setInterval(() => goToSlide(current+1), 5000);
+
+// ── SCROLL TO TOP ──
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── WISHLIST ──
+document.querySelectorAll('.product-wishlist').forEach(btn => {
+  btn.addEventListener('click', e => { e.stopPropagation(); btn.textContent = btn.textContent==='🤍'?'❤️':'🤍'; });
+});
+
+// ── ADD TO CART ──
+document.querySelectorAll('.btn-add').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const orig = btn.textContent; btn.textContent='Added! ✓'; btn.style.background='var(--dark-sage)';
+    setTimeout(() => { btn.textContent=orig; btn.style.background=''; }, 1500);
+  });
+});
+
+// ── SHOP FILTER ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.classList.toggle('hidden', f !== 'all' && card.dataset.cat !== f);
+    });
+  });
+});
+
+// ── COLOUR SWATCHES ──
+document.querySelectorAll('.colour-swatch').forEach(s => {
+  s.addEventListener('click', () => s.classList.toggle('selected'));
+});
+
+// ── PRICE ESTIMATOR ──
+const prices = {"":"0","2000":2000,"800":800,"600":600,"500":500,"700":700,"900":900,"1200":1200,"0":0};
+const qtyMult = {1:1,2:1.9,3:2.7,5:4.2};
+const itemNames = {"":"—","2000":"Blanket / Afghan","800":"Baby Set","600":"Amigurumi Toy","500":"Hat / Beanie","700":"Scarf / Wrap","900":"Tote / Market Bag","1200":"Wall Hanging","0":"Custom Item"};
+function updatePrice() {
+  const v = document.getElementById('item-select').value;
+  const q = parseInt(document.getElementById('qty-select').value);
+  const base = prices[v] || 0;
+  const total = Math.round(base * (qtyMult[q] || q));
+  document.getElementById('est-item').textContent = itemNames[v] || '—';
+  document.getElementById('est-qty').textContent = q + '×';
+  document.getElementById('est-total').textContent = base ? 'KSh ' + total.toLocaleString() : 'Contact for quote';
+}
+
+// ── FORM SUBMISSIONS ──
+function submitOrder(btn) {
+  document.getElementById('success-msg').style.display='block';
+  btn.textContent='Submitted! ✓'; btn.style.background='var(--dark-sage)';
+}
+
+// ── ADMIN AUTH ──
+const ADMIN_EMAIL = 'admin@duroscrafts.com'; // ← change this to your email
+const ADMIN_PASS  = 'Duro@Admin2024';         // ← change this to your password
+let adminLoggedIn = false;
+
+function isAdminUser(email){ return email && email.toLowerCase()===ADMIN_EMAIL.toLowerCase(); }
+
+function setAdminUI(on){
+  adminLoggedIn = on;
+  document.getElementById('nav-admin').style.display = on ? 'inline-flex' : 'none';
+  const lnk = document.getElementById('dropdown-admin-link');
+  const div = document.getElementById('dropdown-admin-divider');
+  const mob = document.getElementById('mobile-nav-admin');
+  if(lnk){ lnk.style.display = on ? 'flex' : 'none'; }
+  if(div){ div.style.display = on ? 'block' : 'none'; }
+  if(mob){ mob.style.display = on ? 'flex' : 'none'; }
+  const dot = document.getElementById('admin-login-btn');
+  if(dot) dot.style.display='none';
+}
+
+function openAdminLogin() {
+  // Redirect to the normal sign-in modal instead of a separate modal
+  openAuthModal('login');
+}
+function closeAdminLogin() {
+  document.getElementById('admin-modal').style.display='none';
+}
+function doAdminLogin() {
+  // Legacy modal kept for fallback; now handled in doLogin()
+  const email = document.getElementById('admin-email-input').value.trim().toLowerCase();
+  if (email === ADMIN_EMAIL.toLowerCase()) {
+    setAdminUI(true);
+    closeAdminLogin();
+    navigate('admin');
+    renderAdminDashboard();
+  } else {
+    const err = document.getElementById('admin-error');
+    err.style.display='block';
+    err.textContent='❌ Unrecognised email. Access denied.';
+    document.getElementById('admin-email-input').select();
+  }
+}
+function adminLogout() {
+  setAdminUI(false);
+  navigate('home');
+}
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') closeAdminLogin();
+  if (e.key==='Enter' && document.getElementById('admin-modal').style.display==='flex') doAdminLogin();
+});
+
+// ── ADMIN DASHBOARD DATA ──
+const adminData = {
+  stats: [
+    {icon:'🛒', label:'Total Orders', value:'47', change:'+8 this week', up:true},
+    {icon:'💰', label:'Revenue', value:'KSh 94,200', change:'+KSh 12,400 this week', up:true},
+    {icon:'✂️', label:'Custom Orders', value:'12', change:'3 pending review', up:null},
+    {icon:'👥', label:'Customers', value:'38', change:'+5 new', up:true},
+  ],
+  orders: [
+    {id:'#0047', customer:'Amara Osei', item:'Sunset Boho Blanket', amount:'KSh 2,450', status:'Paid', date:'Today'},
+    {id:'#0046', customer:'Fatima Al-Hassan', item:'Custom Baby Set', amount:'KSh 1,800', status:'In Progress', date:'Today'},
+    {id:'#0045', customer:'Ngozi Adeyemi', item:'Infinity Scarf × 2', amount:'KSh 1,540', status:'Shipped', date:'Yesterday'},
+    {id:'#0044', customer:'Blessing Eze', item:'Macramé Wall Hanging', amount:'KSh 1,590', status:'Paid', date:'Jun 2'},
+    {id:'#0043', customer:'Chisom Okafor', item:'Cosy Winter Beanie', amount:'KSh 425', status:'Delivered', date:'Jun 1'},
+    {id:'#0042', customer:'Ifeoma Nwosu', item:'Market Tote Bag', amount:'KSh 860', status:'Delivered', date:'May 31'},
+  ],
+  customOrders: [
+    {name:'Fatima Al-Hassan', item:'Baby blanket + booties set', colour:'Mint & White', date:'Need by Jun 20', status:'Pending'},
+    {name:'Adaeze Onyekachi', item:'Wedding gift basket', colour:'Ivory & Gold', date:'Need by Jun 28', status:'Quoted'},
+    {name:'Kemi Adewale', item:'Large boho wall hanging', colour:'Terracotta tones', date:'Flexible', status:'In Progress'},
+  ],
+  products: [
+    {name:'Sunset Boho Blanket', cat:'Blankets', price:'KSh 2,450', stock:'Made to order', sold:14},
+    {name:'Soft Amigurumi Set', cat:'Baby Items', price:'KSh 1,080', stock:'Made to order', sold:9},
+    {name:'Market Tote Bag', cat:'Bags', price:'KSh 860', stock:'Made to order', sold:11},
+    {name:'Cosy Winter Beanie', cat:'Hats', price:'KSh 425', stock:'Made to order', sold:18},
+    {name:'Macramé Wall Hanging', cat:'Home Décor', price:'KSh 1,590', stock:'Made to order', sold:5},
+    {name:'Infinity Scarf', cat:'Scarves', price:'KSh 770', stock:'Made to order', sold:7},
+  ]
+};
+
+function statusColor(s) {
+  return {Paid:'#2d8a4e',Shipped:'#1a6fa8','In Progress':'#b87d1a',Delivered:'#5a7050',Pending:'#c0694a',Quoted:'#7a4a30'}[s]||'#888';
+}
+
+function renderAdminDashboard() {
+  if (!adminLoggedIn) return;
+  const tab = document.querySelector('.admin-tab-btn.active')?.dataset.tab || 'overview';
+  renderAdminTab(tab);
+}
+
+function renderAdminTab(tab) {
+  document.querySelectorAll('.admin-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  const body = document.getElementById('admin-body');
+
+  if (tab==='overview') {
+    body.innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:32px;">
+        ${adminData.stats.map(s=>`
+        <div style="background:#fff;border-radius:14px;padding:22px 20px;border:1px solid #e8d8cc;box-shadow:0 2px 12px rgba(61,35,20,.06);">
+          <div style="font-size:1.8rem;margin-bottom:10px;">${s.icon}</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#3d2314;">${s.value}</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#8a6a50;margin:4px 0;">${s.label}</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:.85rem;color:${s.up===true?'#2d8a4e':s.up===false?'#c0694a':'#8a6a50'};font-style:italic;">${s.change}</div>
+        </div>`).join('')}
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:24px;border:1px solid #e8d8cc;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#3d2314;margin-bottom:18px;">Recent Orders</h3>
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;">
+          <thead><tr style="border-bottom:2px solid #f2e0d0;">${['Order','Customer','Item','Amount','Status','Date'].map(h=>`<th style="padding:10px 12px;text-align:left;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#8a6a50;font-weight:600;">${h}</th>`).join('')}</tr></thead>
+          <tbody>${adminData.orders.slice(0,4).map(o=>`
+          <tr style="border-bottom:1px solid #f5ede6;">
+            <td style="padding:12px;font-weight:700;color:#c0694a;">${o.id}</td>
+            <td style="padding:12px;">${o.customer}</td>
+            <td style="padding:12px;font-style:italic;color:#7a4a30;">${o.item}</td>
+            <td style="padding:12px;font-weight:700;">${o.amount}</td>
+            <td style="padding:12px;"><span style="background:${statusColor(o.status)}22;color:${statusColor(o.status)};padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:700;">${o.status}</span></td>
+            <td style="padding:12px;color:#8a6a50;">${o.date}</td>
+          </tr>`).join('')}
+          </tbody>
+        </table>
+        </div>
+      </div>`;
+  }
+
+  else if (tab==='orders') {
+    body.innerHTML = `
+      <div style="background:#fff;border-radius:14px;padding:24px;border:1px solid #e8d8cc;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#3d2314;">All Orders <span style="font-size:.85rem;color:#8a6a50;font-weight:400;">(${adminData.orders.length})</span></h3>
+          <input placeholder="Search orders…" style="padding:9px 16px;border:1.5px solid #e8d8cc;border-radius:30px;font-family:'Cormorant Garamond',serif;font-size:.9rem;outline:none;width:200px;">
+        </div>
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;">
+          <thead><tr style="border-bottom:2px solid #f2e0d0;">${['Order','Customer','Item','Amount','Status','Date','Action'].map(h=>`<th style="padding:10px 12px;text-align:left;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#8a6a50;font-weight:600;">${h}</th>`).join('')}</tr></thead>
+          <tbody>${adminData.orders.map(o=>`
+          <tr style="border-bottom:1px solid #f5ede6;">
+            <td style="padding:12px;font-weight:700;color:#c0694a;">${o.id}</td>
+            <td style="padding:12px;">${o.customer}</td>
+            <td style="padding:12px;font-style:italic;color:#7a4a30;">${o.item}</td>
+            <td style="padding:12px;font-weight:700;">${o.amount}</td>
+            <td style="padding:12px;"><span style="background:${statusColor(o.status)}22;color:${statusColor(o.status)};padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:700;">${o.status}</span></td>
+            <td style="padding:12px;color:#8a6a50;">${o.date}</td>
+            <td style="padding:12px;"><button onclick="alert('Update order ${o.id}')" style="background:#3d2314;color:#f0d080;border:none;padding:6px 14px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.75rem;cursor:pointer;">Update</button></td>
+          </tr>`).join('')}
+          </tbody>
+        </table>
+        </div>
+      </div>`;
+  }
+
+  else if (tab==='custom') {
+    body.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#3d2314;">Custom Order Requests <span style="font-size:.85rem;color:#8a6a50;font-weight:400;">(${adminData.customOrders.length})</span></h3>
+        </div>
+        ${adminData.customOrders.map(o=>`
+        <div style="background:#fff;border-radius:14px;padding:24px;border:1px solid #e8d8cc;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#3d2314;margin-bottom:6px;">${o.name}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#7a4a30;font-style:italic;margin-bottom:8px;">🧶 ${o.item}</div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <span style="font-family:'Cormorant Garamond',serif;font-size:.85rem;color:#8a6a50;">🎨 ${o.colour}</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:.85rem;color:#8a6a50;">📅 ${o.date}</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+            <span style="background:${statusColor(o.status)}22;color:${statusColor(o.status)};padding:4px 12px;border-radius:12px;font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:700;">${o.status}</span>
+            <button onclick="alert('Reply to ${o.name} on WhatsApp')" style="background:#3d2314;color:#f0d080;border:none;padding:7px 16px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.78rem;cursor:pointer;white-space:nowrap;">💬 Reply</button>
+          </div>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  else if (tab==='products') {
+    body.innerHTML = `
+      <div style="background:#fff;border-radius:14px;padding:24px;border:1px solid #e8d8cc;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#3d2314;">Products</h3>
+          <button onclick="alert('Add product form coming soon!')" style="background:#3d2314;color:#f0d080;border:none;padding:9px 20px;border-radius:30px;font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:700;cursor:pointer;">+ Add Product</button>
+        </div>
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;">
+          <thead><tr style="border-bottom:2px solid #f2e0d0;">${['Product','Category','Price','Availability','Units Sold','Actions'].map(h=>`<th style="padding:10px 12px;text-align:left;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#8a6a50;font-weight:600;">${h}</th>`).join('')}</tr></thead>
+          <tbody>${adminData.products.map(p=>`
+          <tr style="border-bottom:1px solid #f5ede6;">
+            <td style="padding:12px;font-weight:700;color:#3d2314;">${p.name}</td>
+            <td style="padding:12px;"><span style="background:#f2e0d022;color:#c0694a;padding:3px 10px;border-radius:12px;font-size:.78rem;">${p.cat}</span></td>
+            <td style="padding:12px;font-weight:700;">${p.price}</td>
+            <td style="padding:12px;color:#2d8a4e;font-style:italic;">${p.stock}</td>
+            <td style="padding:12px;font-weight:700;color:#7a4a30;">${p.sold}</td>
+            <td style="padding:12px;display:flex;gap:6px;">
+              <button onclick="alert('Edit ${p.name}')" style="background:#f2e0d0;color:#3d2314;border:none;padding:5px 12px;border-radius:16px;font-family:'Cormorant Garamond',serif;font-size:.75rem;cursor:pointer;">Edit</button>
+            </td>
+          </tr>`).join('')}
+          </tbody>
+        </table>
+        </div>
+      </div>`;
+  }
+
+  else if (tab==='settings') {
+    body.innerHTML = `
+      <div style="max-width:600px;">
+        <div style="background:#fff;border-radius:14px;padding:28px;border:1px solid #e8d8cc;margin-bottom:20px;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#3d2314;margin-bottom:18px;">Shop Settings</h3>
+          <div style="margin-bottom:16px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Shop Name</label><input value="Duro's Crafts" style="width:100%;padding:12px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;"></div>
+          <div style="margin-bottom:16px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">WhatsApp Number</label><input value="+254 7XX XXX XXX" style="width:100%;padding:12px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;"></div>
+          <div style="margin-bottom:16px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Free Delivery Threshold</label><input value="KSh 2,000" style="width:100%;padding:12px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;"></div>
+          <button style="background:#3d2314;color:#f0d080;border:none;padding:12px 28px;border-radius:30px;font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:700;cursor:pointer;letter-spacing:.1em;text-transform:uppercase;" onclick="this.textContent='Saved ✓';this.style.background='#5a7050';setTimeout(()=>{this.textContent='Save Changes';this.style.background='#3d2314';},2000)">Save Changes</button>
+        </div>
+        <div style="background:#fff3f0;border-radius:14px;padding:24px;border:1px solid #ffd0c0;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1rem;color:#c0694a;margin-bottom:12px;">⚠️ Admin Access</h3>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#7a4a30;margin-bottom:16px;line-height:1.6;">Admin email: <strong>admin@duroscrafts.com</strong><br>To change, edit the ADMIN_EMAIL variable in the HTML file.</p>
+          <button onclick="adminLogout()" style="background:#c0694a;color:#fff;border:none;padding:10px 24px;border-radius:30px;font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:700;cursor:pointer;">Log Out of Admin</button>
+        </div>
+      </div>`;
+  }
+}
+</script>
+
+<!-- ─── USER AUTH MODAL ─── -->
+<div id="auth-modal" style="display:none;position:fixed;inset:0;background:rgba(26,16,8,0.75);backdrop-filter:blur(10px);z-index:998;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fffdf9;border-radius:24px;width:100%;max-width:420px;box-shadow:0 24px 80px rgba(61,35,20,.3);overflow:hidden;position:relative;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;background:#f2e0d0;">
+      <button id="auth-tab-login"  onclick="switchAuthTab('login')"  style="padding:16px;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;background:#3d2314;color:#f0d080;">Sign In</button>
+      <button id="auth-tab-signup" onclick="switchAuthTab('signup')" style="padding:16px;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:all .2s;background:transparent;color:#8a6a50;">Create Account</button>
+    </div>
+    <div style="padding:36px 36px 32px;">
+      <button onclick="closeAuthModal()" style="position:absolute;top:56px;right:20px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#8a6a50;line-height:1;">x</button>
+      <!-- LOGIN -->
+      <div id="auth-login-form">
+        <div style="text-align:center;margin-bottom:28px;"><div style="font-size:2.2rem;margin-bottom:10px;">🧶</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#3d2314;margin-bottom:4px;">Welcome Back</h2>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#8a6a50;font-style:italic;">Sign in to your Duro's Crafts account</p></div>
+        <div style="margin-bottom:16px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Email Address</label>
+          <input id="login-email" type="email" placeholder="you@example.com" style="width:100%;padding:13px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div style="margin-bottom:8px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Password</label>
+          <div style="position:relative;"><input id="login-pass" type="password" placeholder="Your password" style="width:100%;padding:13px 42px 13px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'">
+          <button onclick="togglePass('login-pass',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:.9rem;color:#8a6a50;">👁</button></div></div>
+        <div style="text-align:right;margin-bottom:20px;"><a href="#" onclick="showForgot()" style="font-family:'Cormorant Garamond',serif;font-size:.82rem;color:#c0694a;text-decoration:none;">Forgot password?</a></div>
+        <div id="login-error" style="display:none;font-family:'Cormorant Garamond',serif;font-size:.88rem;color:#c0694a;background:#fff0ee;padding:10px 14px;border-radius:8px;margin-bottom:14px;"></div>
+        <button onclick="doLogin()" style="width:100%;padding:15px;background:#3d2314;color:#f0d080;border:none;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;" onmouseover="this.style.background='#c0694a'" onmouseout="this.style.background='#3d2314'">Sign In →</button>
+        <div style="text-align:center;margin-top:20px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:#8a6a50;">No account? <a href="#" onclick="switchAuthTab('signup')" style="color:#c0694a;text-decoration:none;font-weight:700;">Create one free</a></div>
+      </div>
+      <!-- SIGNUP -->
+      <div id="auth-signup-form" style="display:none;">
+        <div style="text-align:center;margin-bottom:24px;"><div style="font-size:2.2rem;margin-bottom:10px;">✨</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#3d2314;margin-bottom:4px;">Join Duro's Crafts</h2>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#8a6a50;font-style:italic;">Create your free account today</p></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">First Name</label>
+            <input id="signup-fname" type="text" placeholder="Amara" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+          <div><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Last Name</label>
+            <input id="signup-lname" type="text" placeholder="Osei" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        </div>
+        <div style="margin-bottom:16px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Email Address</label>
+          <input id="signup-email" type="email" placeholder="you@example.com" style="width:100%;padding:13px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div style="margin-bottom:16px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Password</label>
+          <div style="position:relative;"><input id="signup-pass" type="password" placeholder="At least 6 characters" style="width:100%;padding:13px 42px 13px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'" oninput="checkPassStrength(this.value)">
+          <button onclick="togglePass('signup-pass',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:.9rem;color:#8a6a50;">👁</button></div>
+          <div id="pass-strength" style="height:3px;border-radius:2px;margin-top:6px;background:#e8d8cc;transition:all .3s;width:0;"></div>
+          <div id="pass-strength-label" style="font-family:'Cormorant Garamond',serif;font-size:.75rem;color:#8a6a50;margin-top:4px;"></div></div>
+        <div style="margin-bottom:20px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Confirm Password</label>
+          <input id="signup-pass2" type="password" placeholder="Repeat password" style="width:100%;padding:13px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div id="signup-error" style="display:none;font-family:'Cormorant Garamond',serif;font-size:.88rem;color:#c0694a;background:#fff0ee;padding:10px 14px;border-radius:8px;margin-bottom:14px;"></div>
+        <button onclick="doSignup()" style="width:100%;padding:15px;background:#3d2314;color:#f0d080;border:none;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;" onmouseover="this.style.background='#c0694a'" onmouseout="this.style.background='#3d2314'">Create Account →</button>
+        <div style="text-align:center;margin-top:20px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:#8a6a50;">Already have an account? <a href="#" onclick="switchAuthTab('login')" style="color:#c0694a;text-decoration:none;font-weight:700;">Sign in</a></div>
+      </div>
+      <!-- FORGOT -->
+      <div id="auth-forgot-form" style="display:none;">
+        <div style="text-align:center;margin-bottom:28px;"><div style="font-size:2.2rem;margin-bottom:10px;">🔑</div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#3d2314;margin-bottom:4px;">Reset Password</h2>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#8a6a50;font-style:italic;">We'll send a reset link to your email</p></div>
+        <div style="margin-bottom:20px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Email Address</label>
+          <input id="forgot-email" type="email" placeholder="you@example.com" style="width:100%;padding:13px 16px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div id="forgot-msg" style="display:none;font-family:'Cormorant Garamond',serif;font-size:.88rem;padding:10px 14px;border-radius:8px;margin-bottom:14px;"></div>
+        <button onclick="doForgot()" style="width:100%;padding:15px;background:#3d2314;color:#f0d080;border:none;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;" onmouseover="this.style.background='#c0694a'" onmouseout="this.style.background='#3d2314'">Send Reset Link →</button>
+        <div style="text-align:center;margin-top:20px;"><a href="#" onclick="switchAuthTab('login')" style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:#c0694a;text-decoration:none;">← Back to Sign In</a></div>
+      </div>
+      <!-- SUCCESS -->
+      <div id="auth-success" style="display:none;text-align:center;padding:16px 0;">
+        <div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#3d2314;margin-bottom:8px;" id="auth-success-title">Welcome!</h2>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#8a6a50;font-style:italic;margin-bottom:24px;" id="auth-success-msg"></p>
+        <button onclick="closeAuthModal()" style="padding:13px 32px;background:#3d2314;color:#f0d080;border:none;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;">Start Shopping →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT DROPDOWN -->
+<div id="account-dropdown" style="display:none;position:fixed;top:80px;right:20px;background:#fffdf9;border-radius:16px;border:1px solid #e8d8cc;box-shadow:0 12px 40px rgba(61,35,20,.18);z-index:997;min-width:220px;overflow:hidden;">
+  <div style="background:#3d2314;padding:18px 20px;">
+    <div id="dropdown-avatar" style="width:44px;height:44px;border-radius:50%;background:#c0694a;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-family:'Playfair Display',serif;font-weight:700;color:#fff;margin-bottom:10px;"></div>
+    <div id="dropdown-name" style="font-family:'Playfair Display',serif;font-size:1rem;color:#fff;font-weight:700;"></div>
+    <div id="dropdown-email-display" style="font-family:'Cormorant Garamond',serif;font-size:.8rem;color:rgba(255,255,255,.6);margin-top:2px;"></div>
+  </div>
+  <div style="padding:10px 0;">
+    <a href="#" onclick="openAccountPage('orders');closeDropdown();" style="display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#3d2314;text-decoration:none;" onmouseover="this.style.background='#faf6f0'" onmouseout="this.style.background='transparent'">📦 My Orders</a>
+    <a href="#" onclick="openAccountPage('wishlist');closeDropdown();" style="display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#3d2314;text-decoration:none;" onmouseover="this.style.background='#faf6f0'" onmouseout="this.style.background='transparent'">❤️ Wishlist</a>
+    <a href="#" onclick="navigate('custom-order');closeDropdown();" style="display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#3d2314;text-decoration:none;" onmouseover="this.style.background='#faf6f0'" onmouseout="this.style.background='transparent'">✂️ Custom Orders</a>
+    <a href="#" onclick="openAccountPage('settings');closeDropdown();" style="display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#3d2314;text-decoration:none;" onmouseover="this.style.background='#faf6f0'" onmouseout="this.style.background='transparent'">⚙️ Account Settings</a>
+    <div id="dropdown-admin-divider" style="display:none;border-top:1px solid #f2e0d0;margin:6px 0;"></div>
+    <a id="dropdown-admin-link" href="#" onclick="navigate('admin');closeDropdown();renderAdminDashboard();" style="display:none;align-items:center;gap:12px;padding:11px 20px;font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#3d2314;text-decoration:none;background:linear-gradient(90deg,#fff8f0,#fff);" onmouseover="this.style.background='#fff3e8'" onmouseout="this.style.background='linear-gradient(90deg,#fff8f0,#fff)'">🔐 Admin Panel</a>
+    <div style="border-top:1px solid #e8d8cc;margin:6px 0;"></div>
+    <a href="#" onclick="doUserLogout()" style="display:flex;align-items:center;gap:12px;padding:11px 20px;font-family:'Cormorant Garamond',serif;font-size:.92rem;color:#c0694a;text-decoration:none;" onmouseover="this.style.background='#fff0ee'" onmouseout="this.style.background='transparent'">🚪 Sign Out</a>
+  </div>
+</div>
+
+<script>
+// USER AUTH
+let currentUser = null;
+function getUsers(){try{return JSON.parse(localStorage.getItem('dc_users')||'{}')}catch(e){return{}}}
+function saveUsers(u){localStorage.setItem('dc_users',JSON.stringify(u))}
+function getSession(){try{return JSON.parse(localStorage.getItem('dc_session')||'null')}catch(e){return null}}
+function saveSession(u){localStorage.setItem('dc_session',JSON.stringify(u))}
+function clearSession(){localStorage.removeItem('dc_session')}
+
+function openAuthModal(tab){
+  if(currentUser){toggleDropdown();return;}
+  document.getElementById('auth-modal').style.display='flex';
+  switchAuthTab(tab||'login');
+}
+function closeAuthModal(){document.getElementById('auth-modal').style.display='none';}
+
+function switchAuthTab(tab){
+  ['auth-login-form','auth-signup-form','auth-forgot-form','auth-success'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
+  });
+  if(tab==='login'||tab==='signup'){
+    document.getElementById('auth-'+tab+'-form').style.display='block';
+    document.getElementById('auth-tab-login').style.cssText+=';background:'+(tab==='login'?'#3d2314':'transparent')+';color:'+(tab==='login'?'#f0d080':'#8a6a50')+';';
+    document.getElementById('auth-tab-signup').style.cssText+=';background:'+(tab==='signup'?'#3d2314':'transparent')+';color:'+(tab==='signup'?'#f0d080':'#8a6a50')+';';
+  } else if(tab==='forgot'){
+    document.getElementById('auth-forgot-form').style.display='block';
+  }
+}
+function showForgot(){switchAuthTab('forgot');}
+
+function togglePass(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='password'?'👁':'🙈';}
+
+function checkPassStrength(val){
+  const bar=document.getElementById('pass-strength'),lbl=document.getElementById('pass-strength-label');
+  if(!val){bar.style.width='0';lbl.textContent='';return;}
+  let s=0;
+  if(val.length>=6)s++;if(val.length>=10)s++;if(/[A-Z]/.test(val))s++;if(/[0-9]/.test(val))s++;if(/[^a-zA-Z0-9]/.test(val))s++;
+  const L=[['0%','#e8d8cc',''],['25%','#c0694a','Weak'],['50%','#e8b84b','Fair'],['75%','#8a9e7e','Good'],['100%','#2d8a4e','Strong']];
+  const[w,c,t]=L[Math.min(s,4)];bar.style.width=w;bar.style.background=c;lbl.style.color=c;lbl.textContent=t;
+}
+
+function doLogin(){
+  const email=document.getElementById('login-email').value.trim().toLowerCase();
+  const pass=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-error');err.style.display='none';
+  if(!email||!pass){err.style.display='block';err.textContent='Please fill in all fields.';return;}
+
+  // Admin login via normal sign-in form
+  if(isAdminUser(email)){
+    if(pass!==ADMIN_PASS){err.style.display='block';err.textContent='Incorrect password.';return;}
+    // Create a virtual admin user object so the UI works
+    const adminUser={fname:'Admin',lname:'',email:ADMIN_EMAIL,pass:btoa(ADMIN_PASS),joined:'Shop Owner',isAdmin:true};
+    loginSuccess(adminUser);
+    setAdminUI(true);
+    return;
+  }
+
+  const users=getUsers(),user=users[email];
+  if(!user){err.style.display='block';err.textContent='No account found with that email.';return;}
+  if(user.pass!==btoa(pass)){err.style.display='block';err.textContent='Incorrect password.';return;}
+  loginSuccess(user);
+}
+
+function doSignup(){
+  const fname=document.getElementById('signup-fname').value.trim();
+  const lname=document.getElementById('signup-lname').value.trim();
+  const email=document.getElementById('signup-email').value.trim().toLowerCase();
+  const pass=document.getElementById('signup-pass').value;
+  const pass2=document.getElementById('signup-pass2').value;
+  const err=document.getElementById('signup-error');err.style.display='none';
+  if(!fname||!lname||!email||!pass){err.style.display='block';err.textContent='Please fill in all fields.';return;}
+  if(pass.length<6){err.style.display='block';err.textContent='Password must be at least 6 characters.';return;}
+  if(pass!==pass2){err.style.display='block';err.textContent='Passwords do not match.';return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.style.display='block';err.textContent='Please enter a valid email.';return;}
+  if(isAdminUser(email)){err.style.display='block';err.textContent='This email cannot be used for registration.';return;}
+  const users=getUsers();
+  if(users[email]){err.style.display='block';err.textContent='An account with this email already exists.';return;}
+  const user={fname,lname,email,pass:btoa(pass),joined:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})};
+  users[email]=user; saveUsers(users); loginSuccess(user,true);
+}
+
+function doForgot(){
+  const email=document.getElementById('forgot-email').value.trim().toLowerCase();
+  const msg=document.getElementById('forgot-msg'),users=getUsers();
+  msg.style.display='block';
+  if(users[email]){msg.style.color='#2d8a4e';msg.style.background='#f0fff4';msg.textContent='Reset link sent! Check your inbox.';
+  }else{msg.style.color='#c0694a';msg.style.background='#fff0ee';msg.textContent='No account found with that email.';}
+}
+
+function loginSuccess(user,isNew=false){
+  currentUser=user; saveSession(user); updateAccountUI();
+  ['auth-login-form','auth-signup-form','auth-forgot-form'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('auth-success').style.display='block';
+  document.getElementById('auth-success-title').textContent=isNew?'Welcome, '+user.fname+'! 🎉':'Welcome back, '+user.fname+'!';
+  document.getElementById('auth-success-msg').textContent=isNew?'Your account has been created. Happy shopping!':'Great to see you again!';
+  setTimeout(closeAuthModal,2200);
+}
+
+function toggleMobileNav(){
+  const nav=document.getElementById('mobile-nav');
+  const btn=document.getElementById('hamburger-btn');
+  const open=nav.style.display==='flex';
+  nav.style.display=open?'none':'flex';
+  btn.classList.toggle('open',!open);
+  document.body.style.overflow=open?'':'hidden';
+}
+function closeMobileNav(){
+  document.getElementById('mobile-nav').style.display='none';
+  document.getElementById('hamburger-btn').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function updateAccountUI(){
+  const btn=document.getElementById('account-btn');
+  document.getElementById('account-icon').textContent=currentUser?'🧶':'👤';
+  document.getElementById('account-label').textContent=currentUser?(currentUser.isAdmin?'Admin':currentUser.fname):'Sign In';
+  if(currentUser){
+    document.getElementById('dropdown-name').textContent=currentUser.isAdmin?'Duro\'s Crafts Admin':(currentUser.fname+' '+currentUser.lname);
+    document.getElementById('dropdown-email-display').textContent=currentUser.email;
+    document.getElementById('dropdown-avatar').textContent=currentUser.isAdmin?'🔐':currentUser.fname[0].toUpperCase();
+    btn.onclick=toggleDropdown;
+    setAdminUI(!!currentUser.isAdmin);
+    // Mobile drawer
+    document.getElementById('mobile-account-logged-out').style.display='none';
+    document.getElementById('mobile-account-logged-in').style.display='block';
+    document.getElementById('mobile-avatar').textContent=currentUser.isAdmin?'🔐':currentUser.fname[0].toUpperCase();
+    document.getElementById('mobile-user-name').textContent=currentUser.isAdmin?'Admin':currentUser.fname+' '+currentUser.lname;
+    document.getElementById('mobile-user-email').textContent=currentUser.email;
+  } else {
+    btn.onclick=()=>openAuthModal('login');
+    setAdminUI(false);
+    // Mobile drawer
+    document.getElementById('mobile-account-logged-out').style.display='block';
+    document.getElementById('mobile-account-logged-in').style.display='none';
+  }
+}
+
+function toggleDropdown(){const dd=document.getElementById('account-dropdown');dd.style.display=dd.style.display==='block'?'none':'block';}
+function closeDropdown(){document.getElementById('account-dropdown').style.display='none';}
+
+function doUserLogout(){currentUser=null;clearSession();updateAccountUI();setAdminUI(false);closeDropdown();if(document.getElementById('page-account').classList.contains('active'))navigate('home');}
+
+// ── MY ACCOUNT PAGE ──
+function openAccountPage(tab){
+  if(!currentUser){openAuthModal('login');return;}
+  navigate('account');
+  const greeting=document.getElementById('account-page-greeting');
+  if(greeting)greeting.textContent='Welcome back, '+currentUser.fname+' 🧶';
+  renderAccountTab(tab||'profile');
+}
+
+function renderAccountTab(tab){
+  document.querySelectorAll('.acct-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  const body=document.getElementById('account-body');
+  if(!body||!currentUser)return;
+
+  if(tab==='profile'){
+    body.innerHTML=`
+    <div style="max-width:640px;margin:0 auto;">
+      <div style="background:#fff;border-radius:20px;padding:36px;border:1px solid #e8d8cc;margin-bottom:22px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#c0694a,#e8b84b);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:#fff;flex-shrink:0;">${currentUser.fname[0].toUpperCase()}</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#3d2314;">${currentUser.fname} ${currentUser.lname}</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#8a6a50;margin-top:4px;">${currentUser.email}</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:.82rem;color:#b0906a;font-style:italic;margin-top:4px;">Member since ${currentUser.joined||'—'}</div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;border:1px solid #e8d8cc;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#3d2314;margin-bottom:22px;">Edit Profile</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+          <div><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">First Name</label>
+            <input id="prof-fname" value="${currentUser.fname}" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+          <div><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">Last Name</label>
+            <input id="prof-lname" value="${currentUser.lname}" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        </div>
+        <div style="margin-bottom:14px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">Email Address</label>
+          <input id="prof-email" value="${currentUser.email}" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div style="margin-bottom:22px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">Phone (optional)</label>
+          <input id="prof-phone" value="${currentUser.phone||''}" placeholder="+234 800 000 0000" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div id="prof-msg" style="display:none;margin-bottom:14px;font-family:'Cormorant Garamond',serif;font-size:.9rem;padding:10px 14px;border-radius:8px;"></div>
+        <button onclick="saveProfile()" style="background:#3d2314;color:#f0d080;border:none;padding:13px 32px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='#c0694a'" onmouseout="this.style.background='#3d2314'">Save Changes</button>
+      </div>
+    </div>`;
+  }
+
+  if(tab==='orders'){
+    const orders=getUserOrders();
+    body.innerHTML=`
+    <div style="max-width:760px;margin:0 auto;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#3d2314;margin-bottom:22px;">My Orders</h3>
+      ${orders.length===0?`
+      <div style="text-align:center;padding:60px 20px;background:#fff;border-radius:20px;border:1px solid #e8d8cc;">
+        <div style="font-size:3.5rem;margin-bottom:16px;">🛍️</div>
+        <p style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#3d2314;margin-bottom:8px;">No orders yet</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#8a6a50;font-style:italic;margin-bottom:24px;">Your handcrafted pieces will appear here once you shop.</p>
+        <a href="#" onclick="navigate('shop')" style="background:#3d2314;color:#f0d080;padding:12px 28px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">Browse Shop →</a>
+      </div>`:`
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        ${orders.map(o=>`
+        <div style="background:#fff;border-radius:14px;padding:22px 24px;border:1px solid #e8d8cc;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#3d2314;">${o.item}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:.82rem;color:#8a6a50;margin-top:4px;">Order ${o.id} · ${o.date}</div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#3d2314;">${o.amount}</div>
+            <span style="background:${statusColor(o.status)}22;color:${statusColor(o.status)};padding:5px 12px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;">${o.status}</span>
+          </div>
+        </div>`).join('')}
+      </div>`}
+    </div>`;
+  }
+
+  if(tab==='wishlist'){
+    const wl=getUserWishlist();
+    body.innerHTML=`
+    <div style="max-width:760px;margin:0 auto;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#3d2314;margin-bottom:22px;">My Wishlist</h3>
+      ${wl.length===0?`
+      <div style="text-align:center;padding:60px 20px;background:#fff;border-radius:20px;border:1px solid #e8d8cc;">
+        <div style="font-size:3.5rem;margin-bottom:16px;">🤍</div>
+        <p style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#3d2314;margin-bottom:8px;">Your wishlist is empty</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#8a6a50;font-style:italic;margin-bottom:24px;">Tap the 🤍 on any product to save it here.</p>
+        <a href="#" onclick="navigate('shop')" style="background:#3d2314;color:#f0d080;padding:12px 28px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">Browse Shop →</a>
+      </div>`:`
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;">
+        ${wl.map(p=>`
+        <div style="background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e8d8cc;">
+          <div style="height:120px;background:linear-gradient(145deg,#f2e0d0,#e0c0a8);display:flex;align-items:center;justify-content:center;font-size:2.8rem;">${p.icon}</div>
+          <div style="padding:14px 16px;">
+            <div style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#3d2314;margin-bottom:4px;">${p.name}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:.88rem;color:#3d2314;font-weight:700;margin-bottom:12px;">${p.price}</div>
+            <button style="width:100%;background:#3d2314;color:#f0d080;border:none;padding:9px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;cursor:pointer;">Add to Cart</button>
+          </div>
+        </div>`).join('')}
+      </div>`}
+    </div>`;
+  }
+
+  if(tab==='settings'){
+    body.innerHTML=`
+    <div style="max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:18px;">
+      <div style="background:#fff;border-radius:20px;padding:32px;border:1px solid #e8d8cc;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#3d2314;margin-bottom:22px;">Change Password</h3>
+        <div style="margin-bottom:14px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">Current Password</label>
+          <input id="chg-cur" type="password" placeholder="Current password" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div style="margin-bottom:14px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">New Password</label>
+          <input id="chg-new" type="password" placeholder="At least 6 characters" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div style="margin-bottom:22px;"><label style="font-family:'Cormorant Garamond',serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:7px;">Confirm New Password</label>
+          <input id="chg-new2" type="password" placeholder="Repeat new password" style="width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'"></div>
+        <div id="chg-msg" style="display:none;margin-bottom:14px;font-family:'Cormorant Garamond',serif;font-size:.9rem;padding:10px 14px;border-radius:8px;"></div>
+        <button onclick="changePassword()" style="background:#3d2314;color:#f0d080;border:none;padding:13px 32px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;" onmouseover="this.style.background='#c0694a'" onmouseout="this.style.background='#3d2314'">Update Password</button>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:28px;border:1px solid #e8d8cc;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#3d2314;margin-bottom:14px;">Notifications</h3>
+        <label style="display:flex;align-items:center;gap:12px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;margin-bottom:12px;">
+          <input type="checkbox" checked style="width:18px;height:18px;accent-color:#c0694a;"> Order updates & shipping notifications</label>
+        <label style="display:flex;align-items:center;gap:12px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;margin-bottom:12px;">
+          <input type="checkbox" checked style="width:18px;height:18px;accent-color:#c0694a;"> New patterns & product launches</label>
+        <label style="display:flex;align-items:center;gap:12px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;">
+          <input type="checkbox" style="width:18px;height:18px;accent-color:#c0694a;"> Promotions & special offers</label>
+      </div>
+      <div style="background:#fff3f0;border-radius:20px;padding:28px;border:1px solid #ffd0c0;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1rem;color:#c0694a;margin-bottom:10px;">⚠️ Danger Zone</h3>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#7a4a30;margin-bottom:18px;line-height:1.6;">Signing out will remove your session from this device. Your account data is safely stored.</p>
+        <button onclick="doUserLogout();navigate('home');" style="background:#c0694a;color:#fff;border:none;padding:11px 26px;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:700;letter-spacing:.1em;cursor:pointer;">Sign Out of Account</button>
+      </div>
+    </div>`;
+  }
+}
+
+function saveProfile(){
+  const fname=document.getElementById('prof-fname').value.trim();
+  const lname=document.getElementById('prof-lname').value.trim();
+  const email=document.getElementById('prof-email').value.trim().toLowerCase();
+  const phone=document.getElementById('prof-phone').value.trim();
+  const msg=document.getElementById('prof-msg');
+  if(!fname||!lname||!email){msg.style.display='block';msg.style.background='#fff0ee';msg.style.color='#c0694a';msg.textContent='Please fill in all required fields.';return;}
+  const users=getUsers();
+  // If email changed, check it's not taken
+  if(email!==currentUser.email&&users[email]){msg.style.display='block';msg.style.background='#fff0ee';msg.style.color='#c0694a';msg.textContent='That email is already in use.';return;}
+  delete users[currentUser.email];
+  currentUser={...currentUser,fname,lname,email,phone};
+  users[email]=currentUser; saveUsers(users); saveSession(currentUser); updateAccountUI();
+  document.getElementById('account-page-greeting').textContent='Welcome back, '+currentUser.fname+' 🧶';
+  msg.style.display='block';msg.style.background='#f0fff4';msg.style.color='#2d8a4e';msg.textContent='Profile saved successfully! ✓';
+  setTimeout(()=>{msg.style.display='none';},3000);
+}
+
+function changePassword(){
+  const cur=document.getElementById('chg-cur').value;
+  const nw=document.getElementById('chg-new').value;
+  const nw2=document.getElementById('chg-new2').value;
+  const msg=document.getElementById('chg-msg');
+  msg.style.display='none';
+  if(!cur||!nw||!nw2){msg.style.display='block';msg.style.background='#fff0ee';msg.style.color='#c0694a';msg.textContent='Please fill in all fields.';return;}
+  if(currentUser.pass!==btoa(cur)){msg.style.display='block';msg.style.background='#fff0ee';msg.style.color='#c0694a';msg.textContent='Current password is incorrect.';return;}
+  if(nw.length<6){msg.style.display='block';msg.style.background='#fff0ee';msg.style.color='#c0694a';msg.textContent='New password must be at least 6 characters.';return;}
+  if(nw!==nw2){msg.style.display='block';msg.style.background='#fff0ee';msg.style.color='#c0694a';msg.textContent='New passwords do not match.';return;}
+  const users=getUsers();
+  currentUser={...currentUser,pass:btoa(nw)};
+  users[currentUser.email]=currentUser; saveUsers(users); saveSession(currentUser);
+  ['chg-cur','chg-new','chg-new2'].forEach(id=>document.getElementById(id).value='');
+  msg.style.display='block';msg.style.background='#f0fff4';msg.style.color='#2d8a4e';msg.textContent='Password updated successfully! ✓';
+  setTimeout(()=>{msg.style.display='none';},3000);
+}
+
+function getUserOrders(){
+  // Returns demo orders for now; replace with real order storage when needed
+  const saved=currentUser.orders||[];
+  if(saved.length) return saved;
+  return []; // empty state for new users
+}
+function getUserWishlist(){return currentUser.wishlist||[];}
+
+document.addEventListener('click',e=>{
+  const dd=document.getElementById('account-dropdown'),btn=document.getElementById('account-btn');
+  if(dd.style.display==='block'&&!dd.contains(e.target)&&!btn.contains(e.target))closeDropdown();
+  const am=document.getElementById('auth-modal');
+  if(am.style.display==='flex'&&e.target===am)closeAuthModal();
+});
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const s=getSession();if(s){currentUser=s;updateAccountUI();if(s.isAdmin)setAdminUI(true);}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAuthModal();});
+});
+</script>
+
+<!-- ─── PAGE: MY ACCOUNT ─── -->
+<div id="page-account" class="page">
+<div class="breadcrumb"><a href="#" onclick="navigate('home')">Home</a> › My Account</div>
+<div class="page-hero">
+  <div class="page-hero-eyebrow">Your Space</div>
+  <h1 class="page-hero-title">My Account</h1>
+  <p class="page-hero-sub" id="account-page-greeting">Welcome back!</p>
+</div>
+
+<!-- Account Tab Bar -->
+<div style="background:#fff;border-bottom:2px solid #f2e0d0;padding:0 40px;display:flex;gap:0;overflow-x:auto;position:sticky;top:72px;z-index:50;">
+  <button class="acct-tab-btn active" data-tab="profile"   onclick="renderAccountTab('profile')"   style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">👤 Profile</button>
+  <button class="acct-tab-btn"        data-tab="orders"    onclick="renderAccountTab('orders')"    style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">📦 My Orders</button>
+  <button class="acct-tab-btn"        data-tab="wishlist"  onclick="renderAccountTab('wishlist')"  style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">❤️ Wishlist</button>
+  <button class="acct-tab-btn"        data-tab="settings"  onclick="renderAccountTab('settings')"  style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">⚙️ Settings</button>
+</div>
+
+<div id="account-body" style="padding:36px 40px;background:#faf6f0;min-height:60vh;"></div>
+</div>
+<style>
+.acct-tab-btn.active{color:#3d2314 !important;border-bottom-color:#c0694a !important;}
+.acct-tab-btn:hover{color:#3d2314 !important;background:#faf6f0 !important;}
+@media(max-width:900px){#account-body{padding:20px 16px !important;}}
+</style>
+
+<!-- ─── ADMIN LOGIN MODAL ─── -->
+<div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(26,16,8,0.7);backdrop-filter:blur(8px);z-index:999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fffdf9;border-radius:24px;padding:44px 40px;max-width:400px;width:100%;box-shadow:0 24px 80px rgba(61,35,20,.3);position:relative;">
+    <button onclick="closeAdminLogin()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#8a6a50;">×</button>
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="font-size:2.5rem;margin-bottom:12px;">🔐</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#3d2314;margin-bottom:6px;">Admin Access</h2>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#8a6a50;font-style:italic;">Enter your admin email to continue</p>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-family:'Cormorant Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a4a30;display:block;margin-bottom:8px;">Email Address</label>
+      <input id="admin-email-input" type="email" placeholder="your@email.com" style="width:100%;padding:14px 18px;border:2px solid #e8d8cc;border-radius:12px;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d2314;background:#faf6f0;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='#c0694a'" onblur="this.style.borderColor='#e8d8cc'">
+    </div>
+    <div id="admin-error" style="display:none;font-family:'Cormorant Garamond',serif;font-size:.88rem;color:#c0694a;background:#fff0ee;padding:10px 14px;border-radius:8px;margin-bottom:14px;"></div>
+    <button onclick="doAdminLogin()" style="width:100%;padding:15px;background:#3d2314;color:#f0d080;border:none;border-radius:50px;font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='#c0694a'" onmouseout="this.style.background='#3d2314'">Access Admin Panel →</button>
+  </div>
+</div>
+
+<!-- ─── PAGE: ADMIN ─── -->
+<div id="page-admin" class="page">
+  <div style="background:#3d2314;padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-family:'Dancing Script',cursive;font-size:1.3rem;color:#f0d080;font-weight:700;">Duro's Crafts — Admin Panel</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:.78rem;color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;">Shop Management Dashboard</div>
+    </div>
+    <button onclick="adminLogout()" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.8rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(192,105,74,.4)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">Log Out</button>
+  </div>
+
+  <!-- TAB BAR -->
+  <div style="background:#fff;border-bottom:2px solid #f2e0d0;padding:0 40px;display:flex;gap:0;overflow-x:auto;">
+    <button class="admin-tab-btn active" data-tab="overview"   onclick="renderAdminTab('overview')"  style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">📊 Overview</button>
+    <button class="admin-tab-btn"        data-tab="orders"     onclick="renderAdminTab('orders')"    style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">🛒 Orders</button>
+    <button class="admin-tab-btn"        data-tab="custom"     onclick="renderAdminTab('custom')"    style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">✂️ Custom Orders</button>
+    <button class="admin-tab-btn"        data-tab="products"   onclick="renderAdminTab('products')"  style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">🧶 Products</button>
+    <button class="admin-tab-btn"        data-tab="settings"   onclick="renderAdminTab('settings')"  style="font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:16px 22px;background:none;border:none;cursor:pointer;color:#8a6a50;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;">⚙️ Settings</button>
+  </div>
+
+  <div id="admin-body" style="padding:32px 40px;background:#faf6f0;min-height:60vh;"></div>
+</div>
+
+<style>
+.admin-tab-btn.active { color:#3d2314 !important; border-bottom-color:#c0694a !important; }
+.admin-tab-btn:hover { color:#3d2314 !important; background:#faf6f0 !important; }
+@media(max-width:900px){ #admin-body { padding:20px 16px !important; } }
+</style>
+</body></html>
